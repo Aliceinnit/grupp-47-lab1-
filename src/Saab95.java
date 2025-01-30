@@ -30,7 +30,9 @@ public class Saab95 extends Car {
     }
 
     public void incrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+        if (currentSpeed != getEnginePower()) {
+            currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+        }
     }
 
     public void decrementSpeed(double amount){
@@ -39,16 +41,20 @@ public class Saab95 extends Car {
 
     // TODO fix this method according to lab pm
     private void gas(double amount){
-        if (amount == 0){
+        if (amount >= 0 && amount <= 1){
             incrementSpeed(amount);
+        } else{
+            System.out.println("Gas amount must be between 0 and 1.");
         }
 
     }
 
     // TODO fix this method according to lab pm
     private void brake(double amount){
-        if (amount == 1){
+        if (amount >= 0 && amount <= 1){
             decrementSpeed(amount);
+        } else{
+            System.out.println("Brake amount must be between 0 and 1.");
         }
     }
 
