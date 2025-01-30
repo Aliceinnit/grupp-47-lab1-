@@ -1,3 +1,5 @@
+package grupp47_lab1;
+
 import java.awt.*;
 
 public abstract class Car implements Movable {
@@ -5,14 +7,16 @@ public abstract class Car implements Movable {
     private double enginePower; // Engine power of the car
     public double currentSpeed; // The current speed of the car
     private Color color; // Color of the car
-    public String ModelName; // The car model name ???
-    private int x;
-    private int y;
-    private Direction direction;
-
-    public enum Direction{
-        North, South, East, West
+    private String ModelName; // The car model name ???
+    public double xPos;
+    public double yPos;
+    private enum Directions {
+        SOUTH,
+        NORTH,
+        WEST,
+        EAST
     }
+    Directions dir;
 
     public int getNrDoors(){
         return nrDoors;
@@ -29,6 +33,8 @@ public abstract class Car implements Movable {
     public void setEnginePower(double power) {
         enginePower = power;
     }
+
+    public String getModelName() { return ModelName; }
 
     public void setModelName(String name) {
         ModelName = name;
@@ -52,5 +58,33 @@ public abstract class Car implements Movable {
 
     public void stopEngine(){
         currentSpeed = 0;
+    }
+
+    public double getX() { return xPos;}
+
+    public double getY() { return yPos;}
+
+    @Override
+    public void move() {
+        switch(dir) {
+            case NORTH:
+                yPos = getY() + getCurrentSpeed();
+            case SOUTH:
+                yPos = getY() - getCurrentSpeed();
+            case EAST:
+                turnRight();
+            case WEST:
+                turnLeft();
+        }
+    }
+
+    @Override
+    public void turnLeft() {
+        xPos = getX() + getCurrentSpeed();
+    }
+
+    @Override
+    public void turnRight() {
+        xPos = getX() - getCurrentSpeed();
     }
 }

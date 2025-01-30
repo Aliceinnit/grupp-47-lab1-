@@ -1,3 +1,5 @@
+package grupp47_lab1;
+
 import java.awt.*;
 
 public class Saab95 extends Car {
@@ -9,18 +11,18 @@ public class Saab95 extends Car {
         setNrDoors(2);
         setColor(Color.red);
         setEnginePower(125);
-	    turboOn = false;
+        turboOn = false;
         setModelName("Saab95");
         stopEngine();
 
     }
 
     public void setTurboOn(){
-	    turboOn = true;
+        turboOn = true;
     }
 
     public void setTurboOff(){
-	    turboOn = false;
+        turboOn = false;
     }
 
     private double speedFactor(){
@@ -56,20 +58,5 @@ public class Saab95 extends Car {
         } else{
             System.out.println("Brake amount must be between 0 and 1.");
         }
-    }
-
-    @Override
-    public void move() {
-
-    }
-
-    @Override
-    public void turnLeft() {
-
-    }
-
-    @Override
-    public void turnRight() {
-
     }
 }
