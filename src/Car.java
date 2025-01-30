@@ -1,5 +1,3 @@
-package grupp47_lab1;
-
 import java.awt.*;
 
 public abstract class Car implements Movable {
@@ -8,6 +6,13 @@ public abstract class Car implements Movable {
     public double currentSpeed; // The current speed of the car
     private Color color; // Color of the car
     public String ModelName; // The car model name ???
+    private int x;
+    private int y;
+    private Direction direction;
+
+    public enum Direction{
+        North, South, East, West
+    }
 
     public int getNrDoors(){
         return nrDoors;
