@@ -14,7 +14,6 @@ public class Saab95 extends Car {
         turboOn = false;
         setModelName("Saab95");
         stopEngine();
-
     }
 
     public void setTurboOn(){
