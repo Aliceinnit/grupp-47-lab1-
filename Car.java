@@ -10,89 +10,96 @@ public abstract class Car implements Movable {
     private String ModelName;
     public double xPos;
     public double yPos;
-    private enum Directions {
+    public enum Directions {
         SOUTH,
         NORTH,
         WEST,
-        EAST;
+        EAST
     }
-
-    Directions dir;
-
-    public Car() {
-    }
+    private Directions dir = Directions.NORTH;
 
     public int getNrDoors() {
-        return this.nrDoors;
+        return nrDoors;
     }
 
     public void setNrDoors(int nbr) {
-        this.nrDoors = nbr;
+        nrDoors = nbr;
     }
 
     public double getEnginePower() {
-        return this.enginePower;
+        return enginePower;
     }
 
     public void setEnginePower(double power) {
-        this.enginePower = power;
+        enginePower = power;
     }
 
     public String getModelName() {
-        return this.ModelName;
+        return ModelName;
     }
 
     public void setModelName(String name) {
-        this.ModelName = name;
+        ModelName = name;
     }
 
     public double getCurrentSpeed() {
-        return this.currentSpeed;
+        return currentSpeed;
     }
 
     public Color getColor() {
-        return this.color;
+        return color;
     }
 
     public void setColor(Color clr) {
-        this.color = clr;
+        color = clr;
     }
 
     public void startEngine() {
-        this.currentSpeed = 0.1;
+        currentSpeed = 0.1;
     }
 
     public void stopEngine() {
-        this.currentSpeed = (double)0.0F;
+        currentSpeed = 0;
     }
 
     public double getX() {
-        return this.xPos;
+        return xPos;
     }
 
     public double getY() {
-        return this.yPos;
+        return yPos;
+    }
+
+    public void setDir(Directions new_dir) {
+        dir = new_dir;
+    }
+
+    public Directions getDir() {
+        return dir;
     }
 
     public void move() {
-        switch (dir) {
-            case NORTH:
-                this.yPos = this.getY() + this.getCurrentSpeed();
+        switch (getDir()) {
             case SOUTH:
-                this.yPos = this.getY() - this.getCurrentSpeed();
+                yPos = getY() - getCurrentSpeed();
+                break;
             case EAST:
-                this.turnRight();
+                turnRight();
+                break;
             case WEST:
-                this.turnLeft();
-            default:
+                turnLeft();
+                break;
+            default: // Default value is NORTH
+                yPos = getY() + getCurrentSpeed();
         }
     }
 
     public void turnLeft() {
-        this.xPos = this.getX() + this.getCurrentSpeed();
+        xPos = getX() + getCurrentSpeed();
     }
 
     public void turnRight() {
-        this.xPos = this.getX() - this.getCurrentSpeed();
+        xPos = getX() - getCurrentSpeed();
     }
 }
+
