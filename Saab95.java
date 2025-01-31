@@ -42,7 +42,7 @@ public class Saab95 extends Car {
         }
     }
 
-    private void gas(double amount){
+    public void gas(double amount){
         if (amount >= 0 && amount <= 1){
             incrementSpeed(amount);
         } else{
@@ -51,7 +51,7 @@ public class Saab95 extends Car {
 
     }
 
-    private void brake(double amount){
+    public void brake(double amount){
         if (amount >= 0 && amount <= 1){
             decrementSpeed(amount);
         } else{
