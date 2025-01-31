@@ -42,11 +42,7 @@ public class Saab95 extends Car {
         }
     }
 
-    // TODO fix this method according to lab pm
     private void gas(double amount){
-        if (amount < 0){
-            System.out.println("Gas amount cannot be negative, speed will not decrease.");
-        }
         if (amount >= 0 && amount <= 1){
             incrementSpeed(amount);
         } else{
@@ -55,15 +51,14 @@ public class Saab95 extends Car {
 
     }
 
-    // TODO fix this method according to lab pm
     private void brake(double amount){
-        if (amount < 0){
-            System.out.println("Brake amount cannot be negative, speed will not increase.");
-        }
         if (amount >= 0 && amount <= 1){
             decrementSpeed(amount);
         } else{
             System.out.println("Brake amount must be between 0 and 1.");
         }
+    }
+    public boolean isTurboOn() {
+        return turboOn;
     }
 }
