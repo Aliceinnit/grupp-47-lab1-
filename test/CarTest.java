@@ -1,5 +1,6 @@
 package grupp47_lab1;
 
+import grupp47_lab1.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.awt.Color;
@@ -11,7 +12,7 @@ class CarTest {
     // En anonym subklass av Car eftersom Car är abstrakt
     @BeforeEach
     void setUp() {
-        testCar = new Car(4, 100, Color.BLUE, "TestCar") {};
+        testCar = new Volvo240();
     }
 
     @Test
@@ -36,6 +37,7 @@ class CarTest {
 
     @Test
     void testTurnLeft() {
+        testCar.startEngine();
         testCar.turnLeft(); // Från NORTH → WEST
         testCar.move();
         assertTrue(testCar.getX() < 0); // Bilen ska röra sig vänster
@@ -43,6 +45,7 @@ class CarTest {
 
     @Test
     void testTurnRight() {
+        testCar.startEngine();
         testCar.turnRight(); // Från NORTH → EAST
         testCar.move();
         assertTrue(testCar.getX() > 0); // Bilen ska röra sig höger
