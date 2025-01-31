@@ -16,7 +16,7 @@ public abstract class Car implements Movable {
         WEST,
         EAST
     }
-    private Directions dir = Directions.NORTH;
+    public Directions dir = Directions.NORTH;
 
     public int getNrDoors() {
         return nrDoors;
@@ -95,11 +95,11 @@ public abstract class Car implements Movable {
     }
 
     public void turnLeft() {
-        xPos = getX() + getCurrentSpeed();
+        xPos = getX() - getCurrentSpeed();
     }
 
     public void turnRight() {
-        xPos = getX() - getCurrentSpeed();
+        xPos = getX() + getCurrentSpeed();
     }
 }
 
