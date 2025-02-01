@@ -15,36 +15,42 @@ class Volvo240Test {
     }
 
     @Test
-    void testIncrementSpeed() {
-        double currentSpeed = volvo.getCurrentSpeed();
-        volvo.incrementSpeed(1);
-        double newSpeed = volvo.getCurrentSpeed();
-        assertTrue(newSpeed >= currentSpeed);
-        //assertTrue(newSpeed <= volvo.getEnginePower());
-    }
-
-    @Test
-    void testDecrementSpeed() {
-        double currentSpeed = volvo.getCurrentSpeed();
-        volvo.decrementSpeed(1);
-        double newSpeed = volvo.getCurrentSpeed();
-        assertTrue(newSpeed <= currentSpeed);
-        //assertTrue(newSpeed >= 0);
-    }
-
-    @Test
     void testGas() {
-        double currentSpeed = volvo.getCurrentSpeed();
-        volvo.gas(2); //Amount parameter set to 2
-        double newSpeed = volvo.getCurrentSpeed();
-        assertEquals(newSpeed, currentSpeed); //Should be equal since amount: 2 is invalid
+        double speedBefore = volvo.getCurrentSpeed();
+        volvo.gas(1);
+        assertTrue(volvo.getCurrentSpeed() >= speedBefore);
+
+        speedBefore = volvo.getCurrentSpeed();
+        volvo.gas(-1);
+        assertEquals(volvo.getCurrentSpeed(), speedBefore);
+
+        volvo.gas(2);
+        assertEquals(volvo.getCurrentSpeed(), speedBefore);
+
+        while (volvo.getCurrentSpeed() < volvo.getEnginePower()) {
+            volvo.gas(1);
+        }
+        speedBefore = volvo.getCurrentSpeed();
+        volvo.gas(0.34);
+        assertEquals(volvo.getCurrentSpeed(), speedBefore);
     }
 
     @Test
     void testBrake() {
-        double currentSpeed = volvo.getCurrentSpeed();
-        volvo.brake(2); //Amount parameter set to 2
-        double newSpeed = volvo.getCurrentSpeed();
-        assertEquals(newSpeed, currentSpeed); //Should be equal since amount: 2 is invalid
+        double speedBefore = volvo.getCurrentSpeed();
+        volvo.brake(1);
+        assertTrue(volvo.getCurrentSpeed() <= speedBefore);
+
+        speedBefore = volvo.getCurrentSpeed();
+        volvo.brake(-1);
+        assertEquals(volvo.getCurrentSpeed(), speedBefore);
+
+        volvo.brake(2);
+        assertEquals(volvo.getCurrentSpeed(), speedBefore);
+
+        volvo.stopEngine();
+        speedBefore = volvo.getCurrentSpeed();
+        volvo.brake(0.65);
+        assertEquals(volvo.getCurrentSpeed(), speedBefore);
     }
 }
