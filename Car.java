@@ -5,41 +5,48 @@ import java.awt.Color;
 public abstract class Car implements Movable {
     private int nrDoors;
     private double enginePower;
-    public double currentSpeed;
+    private double currentSpeed;
     private Color color;
     private String ModelName;
-    public double xPos;
-    public double yPos;
+    private double xPos;
+    private double yPos;
     public enum Directions {
-        SOUTH,
-        NORTH,
-        WEST,
-        EAST
+        NORTH(0),
+        EAST(1),
+        SOUTH(2),
+        WEST(3);
+
+        private int dirIndex;
+
+        Directions(int dirIndex) {
+            this.dirIndex = dirIndex;
+        }
+
+        public int getDirIndex() {
+            return dirIndex;
+        }
     }
-    public Directions dir = Directions.NORTH;
+
+    public Car(int doors, double power, Color clr, String name) {
+        nrDoors = doors;
+        enginePower = power;
+        color = clr;
+        ModelName = name;
+    }
+
+    private Directions dir = Directions.NORTH;
+
 
     public int getNrDoors() {
         return nrDoors;
-    }
-
-    public void setNrDoors(int nbr) {
-        nrDoors = nbr;
     }
 
     public double getEnginePower() {
         return enginePower;
     }
 
-    public void setEnginePower(double power) {
-        enginePower = power;
-    }
-
     public String getModelName() {
         return ModelName;
-    }
-
-    public void setModelName(String name) {
-        ModelName = name;
     }
 
     public double getCurrentSpeed() {
@@ -48,10 +55,6 @@ public abstract class Car implements Movable {
 
     public Color getColor() {
         return color;
-    }
-
-    public void setColor(Color clr) {
-        color = clr;
     }
 
     public void startEngine() {
@@ -70,12 +73,30 @@ public abstract class Car implements Movable {
         return yPos;
     }
 
-    public void setDir(Directions new_dir) {
-        dir = new_dir;
-    }
-
     public Directions getDir() {
         return dir;
+    }
+
+    protected abstract double speedFactor();
+
+    private void incrementSpeed(double amount){
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
+    }
+
+    private void decrementSpeed(double amount){
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+    }
+
+    public void gas(double amount){
+        if (amount >= 0 && amount <= 1) {
+            incrementSpeed(amount);
+        }
+    }
+
+    public void brake(double amount){
+        if (amount >= 0 && amount <= 1) {
+            decrementSpeed(amount);
+        }
     }
 
     public void move() {
@@ -84,22 +105,35 @@ public abstract class Car implements Movable {
                 yPos = getY() - getCurrentSpeed();
                 break;
             case EAST:
-                turnRight();
+                xPos = getX() + getCurrentSpeed();
                 break;
             case WEST:
-                turnLeft();
+                xPos = getX() - getCurrentSpeed();
                 break;
             default: // Default value is NORTH
                 yPos = getY() + getCurrentSpeed();
         }
     }
 
-    public void turnLeft() {
-        xPos = getX() - getCurrentSpeed();
+    public void turnLeft(Directions dir) {
+        dir = getDir();
+        int newIndex = Math.floorMod(dir.getDirIndex()-1, 4);
+
+        for (Directions d: Directions.values()) {
+            if (d.getDirIndex() == newIndex) {
+                this.dir = d;
+            }
+        }
     }
 
-    public void turnRight() {
-        xPos = getX() + getCurrentSpeed();
+    public void turnRight(Directions dir) {
+        dir = getDir();
+        int newIndex = Math.floorMod(dir.getDirIndex()+1, 4);
+
+        for (Directions d: Directions.values()) {
+            if (d.getDirIndex() == newIndex) {
+                this.dir = d;
+            }
+        }
     }
 }
-
