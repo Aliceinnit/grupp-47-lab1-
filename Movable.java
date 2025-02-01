@@ -3,7 +3,7 @@ package grupp47_lab1;
 public interface Movable {
     void move();
 
-    void turnLeft();
+    void turnLeft(Car.Directions dir);
 
-    void turnRight();
+    void turnRight(Car.Directions dir);
 }
