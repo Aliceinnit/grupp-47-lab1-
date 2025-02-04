@@ -1,4 +1,4 @@
-package grupp47_lab1;
+package grupp47_lab1.test;
 
 import grupp47_lab1.*;
 import org.junit.jupiter.api.BeforeEach;
