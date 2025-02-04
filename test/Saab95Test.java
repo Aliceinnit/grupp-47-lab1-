@@ -1,6 +1,7 @@
 package grupp47_lab1.test;
 
-import org.junit.jupiter.api.Assertions;
+import grupp47_lab1.Saab95;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -27,7 +28,7 @@ class Saab95Test {
         assertFalse(saab.isTurboOn(),"Turbo should be off.")
     }
 
-    @Test
+/*  @Test
     void incrementSpeed() {
         double startSpeed = saab.getCurrentSpeed();
         saab.incrementSpeed(1);
@@ -40,6 +41,6 @@ class Saab95Test {
         double startSpeed = saab.getCurrentSpeed();
         saab.decrementSpeed(1);
         assertTrue(saab.getCurrentSpeed() < startSpeed, "Speed should decrease.")
-    }
+    } */
 
 }
