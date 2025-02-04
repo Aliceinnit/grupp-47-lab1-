@@ -18,21 +18,21 @@ class Saab95Test {
     @Test
     void setTurboOn() {
         saab.setTurboOn();
-        assertTrue(saab.isTurboOn(), "Turbo should be on.")
+        assertTrue(saab.isTurboOn(), "Turbo should be on.");
     }
 
     @Test
     void setTurboOff() {
         saab.setTurboOn();
         saab.setTurboOff();
-        assertFalse(saab.isTurboOn(),"Turbo should be off.")
+        assertFalse(saab.isTurboOn(),"Turbo should be off.");
     }
 
 /*  @Test
     void incrementSpeed() {
         double startSpeed = saab.getCurrentSpeed();
         saab.incrementSpeed(1);
-        assertTrue(saab.getCurrentSpeed() > startSpeed, "Speed should increase.")
+        assertTrue(saab.getCurrentSpeed() > startSpeed, "Speed should increase.");
     }
 
     @Test
@@ -40,7 +40,7 @@ class Saab95Test {
         saab.incrementSpeed(1);
         double startSpeed = saab.getCurrentSpeed();
         saab.decrementSpeed(1);
-        assertTrue(saab.getCurrentSpeed() < startSpeed, "Speed should decrease.")
+        assertTrue(saab.getCurrentSpeed() < startSpeed, "Speed should decrease.");
     } */
 
 }
