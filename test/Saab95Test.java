@@ -18,7 +18,7 @@ class Saab95Test {
     @Test
     void setTurboOn() {
         saab.setTurboOn();
-        assertTrue(saab.IsTurboOn(), "Turbo should be on.")
+        assertTrue(saab.isTurboOn(), "Turbo should be on.")
     }
 
     @Test
