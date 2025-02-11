@@ -3,11 +3,11 @@ package grupp47_lab1;
 import java.awt.Color;
 
 public abstract class Car implements Movable {
-    private int nrDoors;
-    private double enginePower;
+    private final int nrDoors;
+    private final double enginePower;
     private double currentSpeed;
-    private Color color;
-    private String ModelName;
+    private final Color color;
+    private final String ModelName;
     private double xPos;
     private double yPos;
     public enum Directions {
