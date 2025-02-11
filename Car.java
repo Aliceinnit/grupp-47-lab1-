@@ -73,6 +73,11 @@ public abstract class Car implements Movable {
         return yPos;
     }
 
+    protected void setPosition(double x, double y) {
+        xPos = x;
+        yPos = y;
+    }
+
     public Directions getDir() {
         return dir;
     }

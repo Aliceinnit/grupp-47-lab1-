@@ -18,13 +18,13 @@ public class Scania extends Car {
         return flatbedAngle;
     }
 
-    public void lowerFlatbed() {
+    public void raisePlatform() {
         if (getCurrentSpeed() == 0) {
             flatbedAngle = Math.max(getCurrentAngle() - 2, 0);
         }
     }
 
-    public void raiseFlatbed() {
+    public void lowerPlatform() {
         if (getCurrentSpeed() == 0) {
             flatbedAngle = Math.min(getCurrentAngle() + 2, 70);
         }
@@ -41,6 +41,13 @@ public class Scania extends Car {
     public void startEngine() {
         if (getCurrentAngle() == 0) {
             super.startEngine();
+        }
+    }
+
+    @Override
+    public void move() {
+        if (getCurrentAngle() == 0) {
+            super.move();
         }
     }
 }

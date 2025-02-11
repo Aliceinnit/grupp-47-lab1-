@@ -16,7 +16,7 @@ public class ScaniaTest {
     private Scania scania;
     @Test
     void testGas() {
-        scania.raiseFlatbed();
+        scania.raisePlatform();
         double speedBefore = scania.getCurrentSpeed();
         scania.gas(1);
         assertEquals(speedBefore, scania.getCurrentSpeed()); //Tests the gas function when flatbed angle != 0
@@ -24,17 +24,17 @@ public class ScaniaTest {
 
     @Test
     void testFlatbed() {
-        scania.raiseFlatbed();
-        assertTrue(scania.getCurrentAngle() > 0, "Flatbed is not raised");
+        scania.lowerPlatform();
+        assertTrue(scania.getCurrentAngle() > 0, "Platform is not lowered");
 
         double angleBefore = scania.getCurrentAngle();
-        scania.lowerFlatbed();
-        scania.lowerFlatbed();
+        scania.raisePlatform();
+        scania.raisePlatform();
 
-        assertTrue(scania.getCurrentAngle()< angleBefore, "Flatbed is not lowered.");
+        assertTrue(scania.getCurrentAngle()< angleBefore, "Platform is not raised.");
 
         scania.startEngine();
-        scania.raiseFlatbed();
-        assertEquals(0,scania.getCurrentAngle(), "Flatbed is raised even while in motion.");
+        scania.lowerPlatform();
+        assertEquals(0,scania.getCurrentAngle(), "Platform is lowered even while in motion.");
     }
 }
