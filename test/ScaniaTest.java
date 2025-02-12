@@ -16,7 +16,7 @@ public class ScaniaTest {
     private Scania scania;
     @Test
     void testGas() {
-        scania.raisePlatform();
+        scania.lowerPlatform();
         double speedBefore = scania.getCurrentSpeed();
         scania.gas(1);
         assertEquals(speedBefore, scania.getCurrentSpeed()); //Tests the gas function when flatbed angle != 0

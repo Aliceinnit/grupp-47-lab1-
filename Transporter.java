@@ -1,28 +1,36 @@
 package grupp47_lab1;
 
-import java.awt.*;
 import java.util.*;
 
-public class Transporter extends Scania{
-    private ArrayList<Car> cars = new ArrayList<Car>(9);
+public class Transporter extends Scania implements Storage<Car>{
+    private ArrayList<Car> cars = new ArrayList<>(9);
     public enum platformState {
         UP,
         DOWN
     }
     private platformState platformState;
 
+    @Override
     public void loadCar(Car car){
         if (getPlatformState() == platformState.DOWN && cars.size() < 10 && !Objects.equals(car.getModelName(), "Scania") && Math.abs(getY() - car.getY()) <= 5 && Math.abs(getX() - car.getX()) <= 5){
             cars.add(car);
             car.setPosition(getX(), getY());
+        } else {
+            System.out.println("Platform is not lowered.");
         }
-
     }
-    public void unload(){
+
+    @Override
+    public void unloadCar(){
         if (getPlatformState() == platformState.DOWN) {
             cars.removeLast();
         }
     }
+
+    public ArrayList<Car> getCars() {
+        return cars;
+    }
+
     public platformState getPlatformState() {
         return platformState;
     }
@@ -32,16 +40,20 @@ public class Transporter extends Scania{
     }
 
     public void changeState() {
-        if (getCurrentSpeed() == 0){
+        if (getCurrentSpeed() == 0.0){
             switch(getPlatformState()) {
                 case DOWN:
                     while (getCurrentAngle() < 70) {
                         lowerPlatform();
+                        System.out.println("HELLO");
+                        System.out.println(getCurrentAngle());
                     }
+                    break;
                 case UP:
                     while (getCurrentAngle() > 0) {
                         raisePlatform();
                     }
+                    break;
             }
 
         }

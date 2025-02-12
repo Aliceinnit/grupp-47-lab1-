@@ -34,6 +34,8 @@ public class Scania extends Car {
     public void gas(double amount) {
         if (getCurrentAngle() == 0) {
             super.gas(amount);
+        } else {
+            System.out.println("Platform is lowered.");
         }
     }
 
