@@ -9,26 +9,38 @@ public class Transporter<T extends Car> extends Scania implements Storage<T>{
         UP,
         DOWN
     }
-    private platformState platformState;
+    private platformState state = platformState.UP;
 
+    @Override
     public void loadCar(T car){
-        if (getPlatformState() == platformState.DOWN && cars.size() < 10 && !Objects.equals(car.getModelName(), "Scania") && Math.abs(getY() - car.getY()) <= 5 && Math.abs(getX() - car.getX()) <= 5){
+        if (getPlatformState() == platformState.DOWN &&
+                cars.size() < 9 &&
+                !Objects.equals(car.getModelName(), "Scania") &&
+                Math.abs(getY() - car.getY()) <= 5 &&
+                Math.abs(getX() - car.getX()) <= 5){
             cars.add(car);
             car.setPosition(getX(), getY());
         }
 
     }
+
+    @Override
     public void unloadCar(){
         if (getPlatformState() == platformState.DOWN) {
             cars.removeLast();
         }
     }
+
+    @Override
+    public ArrayList<T> getCars() {
+        return cars;
+    }
     public platformState getPlatformState() {
-        return platformState;
+        return state;
     }
 
     public void platformSwitch(platformState nextState) {
-        platformState = nextState;
+        state = nextState;
     }
 
     public void changeState() {
@@ -38,10 +50,12 @@ public class Transporter<T extends Car> extends Scania implements Storage<T>{
                     while (getCurrentAngle() < 70) {
                         lowerPlatform();
                     }
+                    break;
                 case UP:
                     while (getCurrentAngle() > 0) {
                         raisePlatform();
                     }
+                    break;
             }
 
         }
@@ -50,7 +64,7 @@ public class Transporter<T extends Car> extends Scania implements Storage<T>{
     @Override
     public void move() {
         super.move();
-        for (Car car: cars) {
+        for (T car: cars) {
             car.setPosition(getX(), getY());
         }
     }

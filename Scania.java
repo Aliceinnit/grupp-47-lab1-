@@ -21,12 +21,16 @@ public class Scania extends Car {
     public void raisePlatform() {
         if (getCurrentSpeed() == 0) {
             platformAngle = Math.max(getCurrentAngle() - 2, 0);
+        } else {
+            System.out.println("Cannot raise platform when moving.");
         }
     }
 
     public void lowerPlatform() {
         if (getCurrentSpeed() == 0) {
             platformAngle = Math.min(getCurrentAngle() + 2, 70);
+        } else {
+            System.out.println("Cannot lower platform when moving.");
         }
     }
 
@@ -35,7 +39,7 @@ public class Scania extends Car {
         if (getCurrentAngle() == 0) {
             super.gas(amount);
         } else {
-            System.out.println("Platform is lowered.");
+            System.out.println("You cannot gas when platform is lowered.");
         }
     }
 

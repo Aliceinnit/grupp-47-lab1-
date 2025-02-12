@@ -120,8 +120,8 @@ public abstract class Car implements Movable {
         }
     }
 
-    public void turnLeft(Directions dir) {
-        dir = getDir();
+    public void turnLeft() {
+        Directions dir = getDir();
         int newIndex = Math.floorMod(dir.getDirIndex()-1, 4);
 
         for (Directions d: Directions.values()) {
@@ -131,8 +131,8 @@ public abstract class Car implements Movable {
         }
     }
 
-    public void turnRight(Directions dir) {
-        dir = getDir();
+    public void turnRight() {
+        Directions dir = getDir();
         int newIndex = Math.floorMod(dir.getDirIndex()+1, 4);
 
         for (Directions d: Directions.values()) {

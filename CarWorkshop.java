@@ -8,7 +8,7 @@ public class CarWorkshop<T extends Car> implements Storage<T>{
 
     @Override
     public void loadCar(T car) {
-        if (storage.size() < 10){
+        if (storage.size() < 20){
             storage.add(car);
         }
     }
@@ -18,6 +18,10 @@ public class CarWorkshop<T extends Car> implements Storage<T>{
         if (!storage.isEmpty()){
             storage.removeLast();
         }
+    }
 
+    @Override
+    public ArrayList<T> getCars() {
+        return storage;
     }
 }
