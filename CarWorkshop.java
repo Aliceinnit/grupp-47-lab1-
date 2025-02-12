@@ -1,24 +1,23 @@
 package grupp47_lab1;
-
 import java.util.ArrayList;
-import java.util.Objects;
+
+import java.util.List;
 
 public class CarWorkshop<T extends Car> implements Storage<T>{
-    private ArrayList<T> cars = new ArrayList();
+    private ArrayList<T> storage = new ArrayList<>();
 
     @Override
-    public void loadCar(T car){
-        if (cars.size() < 20 && !Objects.equals(car.getModelName(), "Scania")){
-            cars.add(car);
+    public void loadCar(T car) {
+        if (storage.size() < 10){
+            storage.add(car);
         }
     }
 
     @Override
-    public void unloadCar(){
-        cars.removeLast();
-    }
+    public void unloadCar() {
+        if (!storage.isEmpty()){
+            storage.removeLast();
+        }
 
-    public ArrayList<T> getCars() {
-        return cars;
     }
 }
