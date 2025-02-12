@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.*;
 
 public class Transporter<T extends Car> extends Scania implements Storage<T>{
-    private ArrayList<T> cars = new ArrayList<T>();
+    private Stack<T> cars = new Stack<>();
     public enum platformState {
         UP,
         DOWN
@@ -18,7 +18,7 @@ public class Transporter<T extends Car> extends Scania implements Storage<T>{
                 !Objects.equals(car.getModelName(), "Scania") &&
                 Math.abs(getY() - car.getY()) <= 5 &&
                 Math.abs(getX() - car.getX()) <= 5){
-            cars.add(car);
+            cars.push(car);
             car.setPosition(getX(), getY());
         }
 
@@ -27,12 +27,12 @@ public class Transporter<T extends Car> extends Scania implements Storage<T>{
     @Override
     public void unloadCar(){
         if (getPlatformState() == platformState.DOWN) {
-            cars.removeLast();
+            cars.pop();
         }
     }
 
     @Override
-    public ArrayList<T> getCars() {
+    public Stack<T> getCars() {
         return cars;
     }
     public platformState getPlatformState() {

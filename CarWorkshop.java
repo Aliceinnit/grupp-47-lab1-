@@ -1,27 +1,26 @@
 package grupp47_lab1;
-import java.util.ArrayList;
 
-import java.util.List;
+import java.util.Stack;
 
 public class CarWorkshop<T extends Car> implements Storage<T>{
-    private ArrayList<T> storage = new ArrayList<>();
+    private Stack<T> storage = new Stack<>();
 
     @Override
     public void loadCar(T car) {
         if (storage.size() < 20){
-            storage.add(car);
+            storage.push(car);
         }
     }
 
     @Override
     public void unloadCar() {
         if (!storage.isEmpty()){
-            storage.removeLast();
+            storage.pop();
         }
     }
 
     @Override
-    public ArrayList<T> getCars() {
+    public Stack<T> getCars() {
         return storage;
     }
 }
