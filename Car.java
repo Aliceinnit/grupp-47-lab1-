@@ -16,7 +16,7 @@ public abstract class Car implements Movable {
         SOUTH(2),
         WEST(3);
 
-        private int dirIndex;
+        private final int dirIndex;
 
         Directions(int dirIndex) {
             this.dirIndex = dirIndex;

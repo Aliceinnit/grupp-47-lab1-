@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransporterTest {
-    Transporter<Car> transporter;
-    Car testCar;
+    Transporter<PersonCar> transporter;
+    PersonCar testCar;
     @BeforeEach
     void setup(){
         transporter = new Transporter<>();
@@ -20,10 +20,6 @@ class TransporterTest {
 
         transporter.platformSwitch(Transporter.platformState.DOWN);
         transporter.changeState();
-
-        Scania truck = new Scania();
-        transporter.loadCar(truck);
-        assertEquals(transporter.getCars().size(), 0);
 
         while (transporter.getCars().size()<9) {
             transporter.loadCar(testCar);

@@ -2,7 +2,7 @@ package grupp47_lab1;
 
 import java.awt.*;
 
-public class Volvo240 extends Car {
+public class Volvo240 extends PersonCar {
 
     private final static double trimFactor = 1.25;
 

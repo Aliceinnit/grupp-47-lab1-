@@ -2,25 +2,20 @@ package grupp47_lab1;
 
 import java.util.Stack;
 
-public class CarWorkshop<T extends Car> implements Storage<T>{
-    private Stack<T> storage = new Stack<>();
+public class CarWorkshop<T extends PersonCar> {
+    private final Storage<T> storage = new Storage<>();
 
-    @Override
     public void loadCar(T car) {
-        if (storage.size() < 20){
-            storage.push(car);
+        if (storage.getCars().size() < 20){
+            storage.loadCar(car);
         }
     }
 
-    @Override
     public void unloadCar() {
-        if (!storage.isEmpty()){
-            storage.pop();
-        }
+        storage.unloadCar();
     }
 
-    @Override
     public Stack<T> getCars() {
-        return storage;
+        return storage.getCars();
     }
 }
