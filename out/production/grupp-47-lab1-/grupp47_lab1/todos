@@ -1,0 +1,4 @@
+test för extremfall av hastighet vs enginepower
+private instansvariabler
+undvik att ha setters för saker som inte bör ändras
+parameteriserad superklasskonstruktor
