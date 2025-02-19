@@ -36,7 +36,7 @@ public class CarController <Acar extends Car> {
         cc.frame = new CarView("CarSim 1.0", cc);
 
         // Start the timer
-        cc.timer.s4tart();
+        cc.timer.start();
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
@@ -45,7 +45,16 @@ public class CarController <Acar extends Car> {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Acar car : cars) {
-                car.move();
+                if (car.getY() > 400) {
+                    car.setPosition(car.getX(), 400);
+                    turnBack();
+                } else if (car.getY() < 0) {
+                    car.setPosition(car.getX(), 0);
+                    turnBack();
+                }
+                else {
+                    car.move();
+                }
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
                 frame.drawPanel.moveit(x, y);
@@ -61,6 +70,7 @@ public class CarController <Acar extends Car> {
         for (Acar car : cars
         ) {
             car.gas(gas);
+            System.out.println("X: " + car.getX() + "Y: " + car.getY());
         }
     }
 
@@ -116,6 +126,29 @@ public class CarController <Acar extends Car> {
             if (car instanceof Scania scania){
                 scania.lowerPlatform();
             }
+        }
+    }
+
+    void turnRight() {
+        for (Acar car : cars
+        ) {
+            car.turnRight();
+        }
+    }
+
+    void turnLeft() {
+        for (Acar car : cars
+        ) {
+            car.turnLeft();
+        }
+    }
+
+    void turnBack() {
+        for (Acar car : cars
+        ) {
+            car.turnLeft();
+            car.turnLeft();
+            car.startEngine();
         }
     }
 }

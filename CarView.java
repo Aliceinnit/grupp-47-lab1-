@@ -22,7 +22,7 @@ public class CarView extends JFrame{
     // The controller member
     CarController carC;
 
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    DrawPanel drawPanel = new DrawPanel(X, Y-340);
 
     JPanel controlPanel = new JPanel();
 
@@ -33,11 +33,12 @@ public class CarView extends JFrame{
     JLabel gasLabel = new JLabel("Amount of gas");
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
-    JButton turboOnButton = new JButton("Saab Turbo on");
-    JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
-    JButton lowerBedButton = new JButton("Lower Lift Bed");
-
+    JButton turboOnButton = new JButton("Turbo on");
+    JButton turboOffButton = new JButton("Turbo off");
+    JButton liftBedButton = new JButton("Lift Bed");
+    JButton lowerBedButton = new JButton("Lower Bed");
+    JButton turnRightButton = new JButton("Turn right");
+    JButton turnLeftButton = new JButton("Turn left");
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
 
@@ -75,48 +76,27 @@ public class CarView extends JFrame{
 
         this.add(gasPanel);
 
-        controlPanel.setLayout(new GridLayout(1,4));
-
-        //controlPanel.add(gasButton, 0);
-        //controlPanel.add(brakeButton, 1);
-        controlPanel.add(turboOnButton, 0);
-        controlPanel.add(turboOffButton, 1);
-        controlPanel.add(liftBedButton, 2);
-        controlPanel.add(lowerBedButton, 3);
-        controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
-        this.add(controlPanel);
-        controlPanel.setBackground(Color.cyan);
+        controlPanel.setLayout(new GridLayout(0,5));
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.black);
-        startButton.setPreferredSize(new Dimension(X/5-15,200));
-        //this.add(startButton);
-
-        JPanel gasBrakePanel = new JPanel();
-        gasBrakePanel.setLayout(new GridLayout(1, 2));
-        gasBrakePanel.add(gasButton);
-        gasBrakePanel.add(brakeButton);
-        gasBrakePanel.setPreferredSize(new Dimension(200, 200));
-        this.add(gasBrakePanel, BorderLayout.SOUTH);
-
-
-        JPanel startStopPanel = new JPanel();
-        startStopPanel.setLayout(new GridLayout(1, 2));
-        startStopPanel.add(startButton);
-        startStopPanel.add(stopButton);
-        startStopPanel.setPreferredSize(new Dimension(200, 200));
-
-
-        this.add(startStopPanel, BorderLayout.SOUTH);
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X/5-15,200));
-        //this.add(stopButton);
 
-        gasButton.setBackground(Color.pink);
-        brakeButton.setBackground(Color.green);
-
+        controlPanel.add(gasButton);
+        controlPanel.add(brakeButton);
+        controlPanel.add(turboOnButton);
+        controlPanel.add(turboOffButton);
+        controlPanel.add(liftBedButton);
+        controlPanel.add(lowerBedButton);
+        controlPanel.add(turnRightButton);
+        controlPanel.add(turnLeftButton);
+        controlPanel.add(startButton);
+        controlPanel.add(stopButton);
+        controlPanel.setPreferredSize(new Dimension(X, 150));
+        this.add(controlPanel);
+        controlPanel.setBackground(Color.cyan);
 
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
@@ -173,6 +153,20 @@ public class CarView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 carC.lowerPlatform();
+            }
+        });
+
+        turnRightButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.turnRight();
+            }
+        });
+
+        turnLeftButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.turnLeft();
             }
         });
 
