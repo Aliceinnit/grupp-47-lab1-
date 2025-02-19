@@ -28,7 +28,6 @@ public class CarView extends JFrame{
     JSpinner gasSpinner = new JSpinner();
     int gasAmount = 0;
     JLabel gasLabel = new JLabel("Amount of gas");
-
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
     JButton turboOnButton = new JButton("Saab Turbo on");
@@ -40,9 +39,9 @@ public class CarView extends JFrame{
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String framename, CarController cc){
+    public CarView(String frameName, CarController cc){
         this.carC = cc;
-        initComponents(framename);
+        initComponents(frameName);
     }
 
     // Sets everything in place and fits everything
@@ -54,8 +53,6 @@ public class CarView extends JFrame{
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.add(drawPanel);
-
-
 
         SpinnerModel spinnerModel =
                 new SpinnerNumberModel(0, //initial value
@@ -75,7 +72,7 @@ public class CarView extends JFrame{
 
         this.add(gasPanel);
 
-        controlPanel.setLayout(new GridLayout(2,4));
+        controlPanel.setLayout(new GridLayout(1,4));
 
         controlPanel.add(gasButton, 0);
         controlPanel.add(turboOnButton, 1);
@@ -85,14 +82,29 @@ public class CarView extends JFrame{
         controlPanel.add(lowerBedButton, 5);
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
-        controlPanel.setBackground(Color.CYAN);
-
+        controlPanel.setBackground(Color.cyan);
 
         startButton.setBackground(Color.blue);
-        startButton.setForeground(Color.green);
+        startButton.setForeground(Color.black);
         startButton.setPreferredSize(new Dimension(X/5-15,200));
-        this.add(startButton);
+        //this.add(startButton);
 
+        JPanel gasBrakePanel = new JPanel();
+        gasBrakePanel.setLayout(new GridLayout(1, 2));
+        gasBrakePanel.add(gasButton);
+        gasBrakePanel.add(brakeButton);
+        gasBrakePanel.setPreferredSize(new Dimension(200, 200));
+        this.add(gasBrakePanel, BorderLayout.SOUTH);
+
+
+        JPanel startStopPanel = new JPanel();
+        startStopPanel.setLayout(new GridLayout(1, 2));
+        startStopPanel.add(startButton);
+        startStopPanel.add(stopButton);
+        startStopPanel.setPreferredSize(new Dimension(200, 200));
+
+
+        this.add(startStopPanel, BorderLayout.SOUTH);
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
