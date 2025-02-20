@@ -117,7 +117,6 @@ public class CarController <Acar extends Car> {
                 (saab).setTurboOff();
             }
         }
-
     }
 
     void raisePlatform() {
