@@ -10,7 +10,7 @@ import java.util.Stack;
  * modifying the model state and the updating the view.
  */
 
-public class CarController <Acar extends Car> {
+public class CarController {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -22,7 +22,7 @@ public class CarController <Acar extends Car> {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    Stack<Acar> cars = new Stack<>();
+    Stack<Car> cars = new Stack<>();
 
     //methods:
 
@@ -46,7 +46,7 @@ public class CarController <Acar extends Car> {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Acar car : cars) {
+            for (Car car : cars) {
                 if (car.getY() > 400) {
                     car.setPosition(car.getX(), 400);
                     turnBack();
@@ -74,7 +74,7 @@ public class CarController <Acar extends Car> {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Acar car : cars
+        for (Car car : cars
         ) {
             car.gas(gas);
             System.out.println("X: " + car.getX() + "Y: " + car.getY());
@@ -83,28 +83,28 @@ public class CarController <Acar extends Car> {
 
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Acar car : cars
+        for (Car car : cars
         ) {
             car.brake(brake);
         }
     }
 
     void startEngine() {
-        for (Acar car : cars
+        for (Car car : cars
         ) {
             car.startEngine();
         }
     }
 
     void stopEngine() {
-        for (Acar car : cars
+        for (Car car : cars
         ) {
             car.stopEngine();
         }
     }
 
     void turboOn() {
-        for (Acar car : cars) {
+        for (Car car : cars) {
             if (car instanceof Saab95 saab){
                 (saab).setTurboOn();
             }
@@ -112,7 +112,7 @@ public class CarController <Acar extends Car> {
     }
 
     void turboOff() {
-        for (Acar car: cars){
+        for (Car car: cars){
             if (car instanceof Saab95 saab){
                 (saab).setTurboOff();
             }
@@ -120,7 +120,7 @@ public class CarController <Acar extends Car> {
     }
 
     void raisePlatform() {
-        for (Acar car: cars){
+        for (Car car: cars){
             if (car instanceof Scania scania){
                 scania.raisePlatform();
             }
@@ -128,7 +128,7 @@ public class CarController <Acar extends Car> {
     }
 
     void lowerPlatform() {
-        for (Acar car: cars){
+        for (Car car: cars){
             if (car instanceof Scania scania){
                 scania.lowerPlatform();
             }
@@ -136,21 +136,21 @@ public class CarController <Acar extends Car> {
     }
 
     void turnRight() {
-        for (Acar car : cars
+        for (Car car : cars
         ) {
             car.turnRight();
         }
     }
 
     void turnLeft() {
-        for (Acar car : cars
+        for (Car car : cars
         ) {
             car.turnLeft();
         }
     }
 
     void turnBack() {
-        for (Acar car : cars
+        for (Car car : cars
         ) {
             car.turnLeft();
             car.turnLeft();

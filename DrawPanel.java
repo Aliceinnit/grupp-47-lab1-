@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.util.HashMap;
 
 
 // This panel represents the animated part of the view with the car images.
@@ -31,7 +30,6 @@ public class DrawPanel extends JPanel{
         hashMap.put(Volvo240Image, CarPoint.y);
         hashMap.put(ScaniaImage, CarPoint.y);
         hashMap.put(Saab95Image, CarPoint.y);
-
     }
 
 
@@ -71,8 +69,8 @@ public class DrawPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(Volvo240Image, CarPoint.x, CarPoint.y, null); // see javadoc for more info on the parameters
-        g.drawImage(Saab95Image, CarPoint.x, CarPoint.y+100, null); // see javadoc for more info on the parameters
-        g.drawImage(ScaniaImage, CarPoint.x, CarPoint.y+200, null); // see javadoc for more info on the parameters
+        //g.drawImage(Saab95Image, CarPoint.x, CarPoint.y+100, null); // see javadoc for more info on the parameters
+        //g.drawImage(ScaniaImage, CarPoint.x, CarPoint.y+200, null); // see javadoc for more info on the parameters
 
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
     }
