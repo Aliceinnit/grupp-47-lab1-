@@ -4,10 +4,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.util.Map;
 
 
 // This panel represents the animated part of the view with the car images.
@@ -15,30 +17,30 @@ import javax.swing.*;
 public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
-    BufferedImage Volvo240Image;
-    BufferedImage Saab95Image;
-    BufferedImage ScaniaImage;
+
+    private final Map<String, BufferedImage> carImages = new HashMap<>();
+    private final Map<String, Point> carPositions = new HashMap<>();
+
 
     // To keep track of a single car's position
-    Point CarPoint = new Point();
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
 
-    public void hm(String[] args) {
-        HashMap<Image, Integer> hashMap = new HashMap<>();
 
-        hashMap.put(Volvo240Image, CarPoint.y);
-        hashMap.put(ScaniaImage, CarPoint.y);
-        hashMap.put(Saab95Image, CarPoint.y);
+    public void initializeCarPositions(ArrayList<Car> cars) {
+        for (Car car : cars) {
+            carPositions.put(car.getModelName(), new Point((int) car.getX(), (int) car.getY()));
+        }
     }
-
 
     // TODO: Make this general for all cars
-    void moveit(int x, int y){
-        CarPoint.x = x;
-        CarPoint.y = y;
-
+    void moveit(int x, int y, String model){
+        if (carPositions.containsKey(model)) {
+            carPositions.get(model).setLocation(x, y);
+        }
     }
+
+
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {
@@ -47,14 +49,15 @@ public class DrawPanel extends JPanel{
         this.setBackground(Color.white);
         // Print an error message in case file is not found with a try/catch block
         try {
-            Volvo240Image = ImageIO.read(new File("pics/Volvo240.jpg"));
+            //Volvo240Image = ImageIO.read(new File("pics/Volvo240.jpg"));
+            //Saab95Image = ImageIO.read(new File("pics/Saab95.jpg"));
+            //ScaniaImage = ImageIO.read(new File("pics/Scania.jpg"));
 
             // Remember to right-click src New -> Package -> name: pics -> MOVE *.jpg to pics.
             // if you are starting in IntelliJ.
-            Volvo240Image = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg")));
-            Saab95Image = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg")));
-            ScaniaImage = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Scania.jpg")));
-
+            carImages.put("Volvo240", ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"))));
+            carImages.put("Saab95", ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"))));
+            carImages.put("Scania", ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"))));
             volvoWorkshopImage = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg")));
         } catch (IOException ex)
         {
@@ -68,10 +71,14 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(Volvo240Image, CarPoint.x, CarPoint.y, null); // see javadoc for more info on the parameters
-        //g.drawImage(Saab95Image, CarPoint.x, CarPoint.y+100, null); // see javadoc for more info on the parameters
-        //g.drawImage(ScaniaImage, CarPoint.x, CarPoint.y+200, null); // see javadoc for more info on the parameters
+        for (Map.Entry<String, Point> entry : carPositions.entrySet()) {
+            BufferedImage image = carImages.get(entry.getKey());
+            Point pos = entry.getValue();
 
+            if (image != null){
+                g.drawImage(image, pos.x, pos.y, null);
+            }
+        }
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
     }
 }
