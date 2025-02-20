@@ -50,6 +50,7 @@ public class CarController {
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
+        //calls this to ensure that the position of the cars are stored before drawing
         cc.frame.drawPanel.initializeCarPositions(cc.cars);
         // Start the timer
         cc.timer.start();
@@ -168,15 +169,6 @@ public class CarController {
         for (Car car : cars
         ) {
             car.turnLeft();
-        }
-    }
-
-    void turnBack() {
-        for (Car car : cars
-        ) {
-            car.turnLeft();
-            car.turnLeft();
-            car.startEngine();
         }
     }
 }

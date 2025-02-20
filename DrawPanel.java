@@ -28,14 +28,18 @@ public class DrawPanel extends JPanel{
 
 
     public void initializeCarPositions(ArrayList<Car> cars) {
-        for (Car car : cars) {
+        for (Car car : cars) { //Loop through all the cars
+            // stores the car's position in the HashMap carPositions
+            // returns the car's name and creates a point (x,y) where the car will be drawn
             carPositions.put(car.getModelName(), new Point((int) car.getX(), (int) car.getY()));
         }
     }
 
     // TODO: Make this general for all cars
     void moveit(int x, int y, String model){
+        //checks if the car exists in the hashmap carPositions
         if (carPositions.containsKey(model)) {
+            //updates the car's position
             carPositions.get(model).setLocation(x, y);
         }
     }
@@ -70,12 +74,17 @@ public class DrawPanel extends JPanel{
     // TODO: Change to suit your needs.
     @Override
     protected void paintComponent(Graphics g) {
+        //clears the screen
         super.paintComponent(g);
+        //loops through all the cars in the hashmap carPositions
         for (Map.Entry<String, Point> entry : carPositions.entrySet()) {
+            //gets the car image based on its model name
             BufferedImage image = carImages.get(entry.getKey());
+            //gets the stored position (x,y) of the car
             Point pos = entry.getValue();
 
             if (image != null){
+                //draws the car at the position
                 g.drawImage(image, pos.x, pos.y, null);
             }
         }
