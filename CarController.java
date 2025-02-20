@@ -31,6 +31,8 @@ public class CarController <Acar extends Car> {
         CarController cc = new CarController();
 
         cc.cars.add(new Volvo240());
+        cc.cars.add(new Saab95());
+        cc.cars.add(new Scania());
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -51,8 +53,13 @@ public class CarController <Acar extends Car> {
                 } else if (car.getY() < 0) {
                     car.setPosition(car.getX(), 0);
                     turnBack();
-                }
-                else {
+                } else if (car.getX() > 400) {
+                    car.setPosition(400, car.getY());
+                    turnBack();
+                } else if (car.getX() < 0) {
+                    car.setPosition(0, car.getY());
+                    turnBack();
+                } else {
                     car.move();
                 }
                 int x = (int) Math.round(car.getX());
