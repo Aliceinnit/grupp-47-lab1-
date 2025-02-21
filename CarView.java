@@ -20,7 +20,7 @@ public class CarView extends JFrame{
     private static final int Y = 800;
 
     // The controller member
-    CarController carC;
+    Controllable carC;
 
     DrawPanel drawPanel = new DrawPanel(X, Y-340);
 
@@ -43,13 +43,12 @@ public class CarView extends JFrame{
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String frameName, CarController cc){
+    public CarView(String frameName, Controllable cc){
         this.carC = cc;
         initComponents(frameName);
     }
 
     // Sets everything in place and fits everything
-    // TODO: Take a good look and make sure you understand how these methods and components work
     private void initComponents(String title) {
 
         this.setTitle(title);

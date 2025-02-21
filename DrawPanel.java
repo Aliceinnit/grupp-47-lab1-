@@ -32,7 +32,6 @@ public class DrawPanel extends JPanel{
         }
     }
 
-    // TODO: Make this general for all cars
     void moveit(int x, int y, String model){
         //checks if the car exists in the hashmap carPositions
         if (carPositions.containsKey(model)) {

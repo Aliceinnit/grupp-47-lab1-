@@ -11,7 +11,7 @@ import java.util.Stack;
  * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class CarController implements Controllable {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -46,7 +46,7 @@ public class CarController {
         cc.cars.add(scania);
 
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
+        cc.frame = new CarView("CarSim 1.0", (Controllable) cc);
 
         cc.frame.drawPanel.initializeCarPositions(cc.cars);
         // Start the timer
@@ -91,14 +91,13 @@ public class CarController {
             frame.drawPanel.repaint();
         }
     }
-
+    @Override
     // Calls the gas method for each car once
-    void gas(int amount) {
+    public void gas(int amount) {
         double gas = ((double) amount) / 100;
         for (Car car : cars
         ) {
             car.gas(gas);
-            System.out.println("X: " + car.getX() + "Y: " + car.getY());
         }
     }
     private void checkCollisionWithWorkshop(Car car) {
@@ -106,71 +105,70 @@ public class CarController {
             if (Math.abs(car.getY()-DrawPanel.volvoWorkshopPoint.y) < 50 &&
                 Math.abs(car.getX()-DrawPanel.volvoWorkshopPoint.x) < 50){
                 volvoWorkshop.loadCar((Volvo240) car);
-                cars.remove(car);
                 frame.drawPanel.removeCarFromUI(car.getModelName()); // Remove from rendering
                 frame.drawPanel.repaint();
             }
         }
     }
-
-    void brake(int amount) {
+    @Override
+    public void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Car car : cars) {
             car.brake(brake);
         }
     }
-
-    void startEngine() {
+    @Override
+    public void startEngine() {
         for (Car car : cars) {
             car.startEngine();
         }
     }
-
-    void stopEngine() {
+    @Override
+    public void stopEngine() {
         for (Car car : cars) {
             car.stopEngine();
         }
     }
-
-    void turboOn() {
+    @Override
+    public void turboOn() {
         for (Car car : cars) {
             if (car instanceof Saab95 saab){
                 (saab).setTurboOn();
             }
         }
     }
-
-    void turboOff() {
+    @Override
+    public void turboOff() {
         for (Car car: cars){
             if (car instanceof Saab95 saab){
                 (saab).setTurboOff();
             }
         }
     }
-
-    void raisePlatform() {
+    @Override
+    public void raisePlatform() {
         for (Car car: cars){
             if (car instanceof Scania scania){
                 scania.raisePlatform();
             }
         }
     }
-
-    void lowerPlatform() {
+    @Override
+    public void lowerPlatform() {
         for (Car car: cars){
             if (car instanceof Scania scania){
                 scania.lowerPlatform();
             }
         }
     }
-
-    void turnRight() {
+    @Override
+    public void turnRight() {
         for (Car car : cars) {
             car.turnRight();
         }
     }
-
-    void turnLeft() {
+    @Override
+    public void turnLeft() {
         for (Car car : cars) {
             car.turnLeft();
         }
