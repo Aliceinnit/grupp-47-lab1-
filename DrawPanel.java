@@ -4,12 +4,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.util.Map;
 
 
 // This panel represents the animated part of the view with the car images.
@@ -24,10 +21,10 @@ public class DrawPanel extends JPanel{
 
     // To keep track of a single car's position
     BufferedImage volvoWorkshopImage;
-    Point volvoWorkshopPoint = new Point(300,300);
+    static Point volvoWorkshopPoint = new Point(300,300);
 
 
-    public void initializeCarPositions(ArrayList<Car> cars) {
+    public void initializeCarPositions(Stack<Car> cars) {
         for (Car car : cars) { //Loop through all the cars
             // stores the car's position in the HashMap carPositions
             // returns the car's name and creates a point (x,y) where the car will be drawn
@@ -44,6 +41,9 @@ public class DrawPanel extends JPanel{
         }
     }
 
+    public void removeCarFromUI(String modelName) {
+        carPositions.remove(modelName);
+    }
 
 
     // Initializes the panel and reads the images

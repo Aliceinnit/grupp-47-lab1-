@@ -3,8 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 
 /*
@@ -47,8 +45,6 @@ public class CarController {
         cc.cars.add(saab95);
         cc.cars.add(scania);
 
-
-
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
@@ -63,6 +59,7 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for(Car car : cars) {
+                checkCollisionWithWorkshop(car);
                 boolean turned = false;
 
                 if (car.getY() > 400) {
@@ -118,22 +115,19 @@ public class CarController {
 
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Car car : cars
-        ) {
+        for (Car car : cars) {
             car.brake(brake);
         }
     }
 
     void startEngine() {
-        for (Car car : cars
-        ) {
+        for (Car car : cars) {
             car.startEngine();
         }
     }
 
     void stopEngine() {
-        for (Car car : cars
-        ) {
+        for (Car car : cars) {
             car.stopEngine();
         }
     }
@@ -171,15 +165,13 @@ public class CarController {
     }
 
     void turnRight() {
-        for (Car car : cars
-        ) {
+        for (Car car : cars) {
             car.turnRight();
         }
     }
 
     void turnLeft() {
-        for (Car car : cars
-        ) {
+        for (Car car : cars) {
             car.turnLeft();
         }
     }
