@@ -1,5 +1,6 @@
 package grupp47_lab1;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    ArrayList<Car> cars = new ArrayList<>();
+    Stack<Car> cars = new Stack<>();
+    static CarWorkshop<Volvo240> volvoWorkshop = new CarWorkshop<>();
 
     //methods:
 
@@ -69,8 +71,8 @@ public class CarController {
                 } else if (car.getY() < 0) {
                     car.setPosition(car.getX(), 0);
                     turned = true;
-                } else if (car.getX() > 400) {
-                    car.setPosition(400, car.getY());
+                } else if (car.getX() > 685) {
+                    car.setPosition(685, car.getY());
                     turned = true;
                 } else if (car.getX() < 0) {
                     car.setPosition(0, car.getY());
@@ -100,6 +102,17 @@ public class CarController {
         ) {
             car.gas(gas);
             System.out.println("X: " + car.getX() + "Y: " + car.getY());
+        }
+    }
+    private void checkCollisionWithWorkshop(Car car) {
+        if (car instanceof Volvo240) {
+            if (Math.abs(car.getY()-DrawPanel.volvoWorkshopPoint.y) < 50 &&
+                Math.abs(car.getX()-DrawPanel.volvoWorkshopPoint.x) < 50){
+                volvoWorkshop.loadCar((Volvo240) car);
+                cars.remove(car);
+                frame.drawPanel.removeCarFromUI(car.getModelName()); // Remove from rendering
+                frame.drawPanel.repaint();
+            }
         }
     }
 

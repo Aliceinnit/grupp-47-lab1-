@@ -18,8 +18,8 @@ public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
 
-    private final Map<String, BufferedImage> carImages = new HashMap<>();
-    private final Map<String, Point> carPositions = new HashMap<>();
+    Map<String, BufferedImage> carImages = new HashMap<>();
+    static Map<String, Point> carPositions = new HashMap<>();
 
 
     // To keep track of a single car's position
@@ -72,10 +72,13 @@ public class DrawPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         for (Map.Entry<String, Point> entry : carPositions.entrySet()) {
+            //gets the car image based on its model name
             BufferedImage image = carImages.get(entry.getKey());
+            //gets the stored position (x,y) of the car
             Point pos = entry.getValue();
 
             if (image != null){
+                //draws the car at the position
                 g.drawImage(image, pos.x, pos.y, null);
             }
         }

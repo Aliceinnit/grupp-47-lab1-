@@ -1,5 +1,4 @@
 package grupp47_lab1;
-
 import java.util.Stack;
 
 public class CarWorkshop<T extends PersonCar> {
@@ -10,7 +9,6 @@ public class CarWorkshop<T extends PersonCar> {
             storage.loadCar(car);
         }
     }
-
     public void unloadCar() {
         storage.unloadCar();
     }
