@@ -1,6 +1,5 @@
 package grupp47_lab1;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Stack;
@@ -45,10 +44,7 @@ public class CarController implements Controllable {
         cc.cars.add(saab95);
         cc.cars.add(scania);
 
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", (Controllable) cc);
-
-        cc.frame.drawPanel.initializeCarPositions(cc.cars);
+        cc.positionHandler.initializeCarPositions(cc.cars);
         // Start the timer
         cc.timer.start();
     }
@@ -85,7 +81,7 @@ public class CarController implements Controllable {
                 }
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
-                frame.drawPanel.moveit(x, y, car.getModelName());
+                frame.updateCarPosition(x, y, car.getModelName());
                 // repaint() calls the paintComponent method of the panel
             }
             frame.drawPanel.repaint();
@@ -100,16 +96,7 @@ public class CarController implements Controllable {
             car.gas(gas);
         }
     }
-    private void checkCollisionWithWorkshop(Car car) {
-        if (car instanceof Volvo240) {
-            if (Math.abs(car.getY()-DrawPanel.volvoWorkshopPoint.y) < 50 &&
-                Math.abs(car.getX()-DrawPanel.volvoWorkshopPoint.x) < 50){
-                volvoWorkshop.loadCar((Volvo240) car);
-                frame.drawPanel.removeCarFromUI(car.getModelName()); // Remove from rendering
-                frame.drawPanel.repaint();
-            }
-        }
-    }
+
     @Override
     public void brake(int amount) {
         double brake = ((double) amount) / 100;

@@ -2,7 +2,6 @@ package grupp47_lab1;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import javax.imageio.ImageIO;
@@ -13,36 +12,15 @@ import javax.swing.*;
 
 public class DrawPanel extends JPanel{
 
-    // Just a single image, TODO: Generalize
-
+    //static Map<String, Point> carPositions = new HashMap<>();
     Map<String, BufferedImage> carImages = new HashMap<>();
-    static Map<String, Point> carPositions = new HashMap<>();
+    private final CarPositionHandler positionHandler;
 
 
     // To keep track of a single car's position
     BufferedImage volvoWorkshopImage;
     static Point volvoWorkshopPoint = new Point(300,300);
 
-
-    public void initializeCarPositions(Stack<Car> cars) {
-        for (Car car : cars) { //Loop through all the cars
-            // stores the car's position in the HashMap carPositions
-            // returns the car's name and creates a point (x,y) where the car will be drawn
-            carPositions.put(car.getModelName(), new Point((int) car.getX(), (int) car.getY()));
-        }
-    }
-
-    void moveit(int x, int y, String model){
-        //checks if the car exists in the hashmap carPositions
-        if (carPositions.containsKey(model)) {
-            //updates the car's position
-            carPositions.get(model).setLocation(x, y);
-        }
-    }
-
-    public void removeCarFromUI(String modelName) {
-        carPositions.remove(modelName);
-    }
 
 
     // Initializes the panel and reads the images
@@ -70,11 +48,11 @@ public class DrawPanel extends JPanel{
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself
-    // TODO: Change to suit your needs.
     @Override
     protected void paintComponent(Graphics g) {
         //clears the screen
         super.paintComponent(g);
+        Map<String, Point> carPositions = positionHandler.getCarPositions();
         //loops through all the cars in the hashmap carPositions
         for (Map.Entry<String, Point> entry : carPositions.entrySet()) {
             //gets the car image based on its model name
