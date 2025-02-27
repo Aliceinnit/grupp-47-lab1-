@@ -4,8 +4,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Stack;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -42,11 +41,20 @@ public class CarView extends JFrame{
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String frameName, Controllable cc){
-        this.carC = cc;
+    public CarView(String frameName, Controllable cc, Stack<Car> cars, CarPositionHandler positionHandler){
+        this.eventHandler = new EventHandler(cc); //skapar ny EventHandler
+        this.drawPanel = new DrawPanel(800, 460, cars, positionHandler);
         initComponents(frameName);
     }
 
+    //Uppdaterar UIt genom att anropa repaint på drawpanel
+    public void updateUI(){
+        drawPanel.repaint();
+    }
+
+    public void updateCarPosition(int x, int y, String modelName) {
+        drawPanel.updateCarPosition(x, y, modelName);
+    }
     // Sets everything in place and fits everything
     private void initComponents(String title) {
 

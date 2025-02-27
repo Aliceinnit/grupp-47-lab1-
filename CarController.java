@@ -23,9 +23,17 @@ public class CarController implements Controllable {
     CarView frame;
     // A list of cars, modify if needed
     Stack<Car> cars = new Stack<>();
-    static CarWorkshop<Volvo240> volvoWorkshop = new CarWorkshop<>();
+    private final WorkshopHandler workshopHandler;
+    private final CarPositionHandler positionHandler;
 
     //methods:
+
+    public CarController(){
+        // Start a new view and send a reference of self
+        this.positionHandler = new CarPositionHandler(cars);
+        this.frame = new CarView("CarSim 1.0", this, cars, positionHandler);
+        this.workshopHandler = new WorkshopHandler();
+    }
 
     public static void main(String[] args) {
         // Instance of this class
@@ -54,8 +62,15 @@ public class CarController implements Controllable {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            Stack<Car> carsToRemove = new Stack<>();
             for(Car car : cars) {
-                checkCollisionWithWorkshop(car);
+                if (workshopHandler.checkCollisionWithWorkshop(car)){
+                    carsToRemove.add(car);
+                    positionHandler.removeCarFromUI(car.getModelName());
+                } else {
+                    car.move();
+                    positionHandler.moveit((int) car.getX(), (int) car.getY(), car.getModelName());
+                }
                 boolean turned = false;
 
                 if (car.getY() > 400) {
@@ -84,7 +99,8 @@ public class CarController implements Controllable {
                 frame.updateCarPosition(x, y, car.getModelName());
                 // repaint() calls the paintComponent method of the panel
             }
-            frame.drawPanel.repaint();
+            cars.removeAll(carsToRemove);
+            frame.updateUI();
         }
     }
     @Override

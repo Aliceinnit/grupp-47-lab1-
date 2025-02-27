@@ -24,18 +24,12 @@ public class DrawPanel extends JPanel{
 
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y) {
+    public DrawPanel(int x, int y, Stack<Car> cars, CarPositionHandler positionHandler) {
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.white);
-        // Print an error message in case file is not found with a try/catch block
+        this.positionHandler = positionHandler;
         try {
-            //Volvo240Image = ImageIO.read(new File("pics/Volvo240.jpg"));
-            //Saab95Image = ImageIO.read(new File("pics/Saab95.jpg"));
-            //ScaniaImage = ImageIO.read(new File("pics/Scania.jpg"));
-
-            // Remember to right-click src New -> Package -> name: pics -> MOVE *.jpg to pics.
-            // if you are starting in IntelliJ.
             carImages.put("Volvo240", ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"))));
             carImages.put("Saab95", ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"))));
             carImages.put("Scania", ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"))));
@@ -47,6 +41,13 @@ public class DrawPanel extends JPanel{
 
     }
 
+    public void updateCarPosition(int x, int y, String modelName) {
+        positionHandler.moveit(x,y, modelName);
+    }
+
+    public void removeCarFromUI(String modelName){
+        positionHandler.removeCarFromUI(modelName);
+    }
     // This method is called each time the panel updates/refreshes/repaints itself
     @Override
     protected void paintComponent(Graphics g) {
