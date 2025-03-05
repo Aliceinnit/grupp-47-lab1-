@@ -18,9 +18,9 @@ public class DrawPanel extends JPanel{
 
 
     // To keep track of a single car's position
-    BufferedImage volvoWorkshopImage;
     static Point volvoWorkshopPoint = new Point(300,300);
 
+    BufferedImage volvoWorkshopImage;
 
 
     // Initializes the panel and reads the images
@@ -29,16 +29,6 @@ public class DrawPanel extends JPanel{
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.white);
         this.positionHandler = positionHandler;
-        try {
-            carImages.put("Volvo240", ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"))));
-            carImages.put("Saab95", ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"))));
-            carImages.put("Scania", ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"))));
-            volvoWorkshopImage = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg")));
-        } catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
-
     }
 
     public void updateCarPosition(int x, int y, String modelName) {

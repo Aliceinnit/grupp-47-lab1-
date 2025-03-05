@@ -1,6 +1,5 @@
 package grupp47_lab1;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class Storage<T extends PersonCar> {

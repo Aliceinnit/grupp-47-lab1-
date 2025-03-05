@@ -4,13 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Stack;
 
-/*
- * This class represents the Controller part in the MVC pattern.
- * Its responsibilities are to listen to the View and responds in an appropriate manner by
- * modifying the model state and the updating the view.
- */
-
-public class CarController implements Controllable {
+public class CarController extends Observable implements Controllable {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -33,25 +27,18 @@ public class CarController implements Controllable {
         this.positionHandler = new CarPositionHandler(cars);
         this.frame = new CarView("CarSim 1.0", this, cars, positionHandler);
         this.workshopHandler = new WorkshopHandler();
+
+        //Lägg in de förskapade bilarna i listan och kalla på VehicleFactory för att skapa de
+        //cars.add(VehicleFactory.createCar("Volvo240", 100, 0));
+        cars.add(VehicleFactory.createVehicle("Saab95", 100, 140));
+        cars.add(VehicleFactory.createVehicle("Scania", 0, 200));
+        cars.add(VehicleFactory.createVehicle("Volvo240", 200, 0));
+
     }
 
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
-
-        Volvo240 volvo240 = new Volvo240();
-        volvo240.setPosition(0,0);
-
-        Saab95 saab95 = new Saab95();
-        saab95.setPosition(120,100);
-
-        Scania scania = new Scania();
-        scania.setPosition(240,200);
-
-        cc.cars.add(volvo240);
-        cc.cars.add(saab95);
-        cc.cars.add(scania);
-
         cc.positionHandler.initializeCarPositions(cc.cars);
         // Start the timer
         cc.timer.start();
@@ -176,5 +163,16 @@ public class CarController implements Controllable {
             car.turnLeft();
         }
     }
+
+    @Override
+    public void addCar(Car car){
+        cars.push(car);
+    }
+
+    @Override
+    public void removeCar(){
+
+    }
+
 }
 

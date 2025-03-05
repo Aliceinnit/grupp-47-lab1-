@@ -1,4 +1,161 @@
-test för extremfall av hastighet vs enginepower
-private instansvariabler
-undvik att ha setters för saker som inte bör ändras
-parameteriserad superklasskonstruktor
+Vilka ansvarsområden har era klasser? 
+
+Vilka anledningar har de att förändras? 
+
+På vilka klasser skulle ni behöva tillämpa dekomposition för att bättre följa SoC och SRP? 
+
+ 
+
+ 
+
+Car 
+
+Ansvarar för en mall för ett generiskt fordon. 
+
+Kanske måste förändras om ett nytt annorlunda fordon introduceras. (kommer inte på några förslag) 
+
+Ingen Dekomposition 
+
+ 
+
+Truck 
+
+Ansvarar för flak-functionalitet 
+
+Ingen rimlig anledning att förändras 
+
+Ingen Dekomposition 
+
+ 
+
+PersonCar 
+
+Ansvarar för att ändra state på en PersonCar 
+
+Ingen rimlig anledning att förändras 
+
+Ingen Dekomposition 
+
+ 
+
+Movable 
+
+Ansvarar för att definera rörelsemöjligheter 
+
+Förändring till att lägga till back-möjlighet 
+
+Ingen Dekomposition 
+
+ 
+
+CarController 
+
+Ansvarar för att bilen inte åker ur rutan och målar om dem. 
+
+Ansvarar för bilarnas position. 
+
+Ansvarar för volvoworkshop. 
+
+Kopplar knapparna till bilarna. 
+
+Ingen rimlig anledning att förändras 
+
+ 
+
+Dekomposera ny klass workshop manager som tar hand om workshop logiken, och flytta lite grejer som har med UI att göra till en klass som målar om 
+
+ 
+
+CarView 
+
+Ansvarar för att hantera layouten 
+
+Ansvarar för interaction från användare 
+
+Ingen rimlig anledning att förändras 
+
+CarEventHandler klass med alla actionListeners.  
+
+ 
+
+CarWorkshop 
+
+Ansvarar för att förvara PersonCars 
+
+Ingen rimlig anledning att förändras 
+
+Ingen Dekomposition 
+
+ 
+
+DrawPanel 
+
+Ansvarar för att måla upp 
+
+Ansvarar för att hålla koll på bilens position – flytta ut allt som har med carPositions att göra. 
+
+  
+
+Saab95 
+
+Ansvarar för Turbo 
+
+Ingen rimlig anledning att förändras 
+
+Ingen Dekomposition 
+
+ 
+
+Scania 
+
+Ansvarar för Flak 
+
+Ingen rimlig anledning att förändras 
+
+Ingen Dekomposition 
+
+ 
+
+Storage 
+
+Ansvarar för förvaringen av PersonCars 
+
+Ingen rimlig anledning att förändras 
+
+Ingen Dekomposition 
+
+ 
+
+Transporter 
+
+Ansvarar för förflyttning av bilar. 
+
+Ingen rimlig anledning att förändras 
+
+Ingen Dekomposition 
+
+ 
+
+Volvo240 
+
+Ansvarar för Volvos trimFactor 
+
+Ingen rimlig anledning att förändras 
+
+Ingen Dekomposition 
+
+ 
+
+Refaktoreringsplan 
+
+CarController och CarView har ett cirkulärt beroende så vi implementerar ett Interface: Controllable vilket CarController implementerar och CarView beror på. 
+
+Flytta metoderna i CarController som används i CarView till interfacet och låt CarView anropa interfacet istället för CarController. 
+
+Skapa en ny klass WorkshopHandler och lägger checkCollisionWithWorkshop från CarController där tillsamans med volvoWorkshop. 
+
+Flytta ut alla actionListeners fron CarView till en CarEventHandler så att CarView inte skapar och lyssnar. 
+
+DrawPanel borde inte hålla koll på bilarnas positioner så flytta ut allt som har med carPositions till den nya klassen CarPositionHandler. 
+
+CarController borde inte måla upp grejer så flytta ut repaint till CarView i en egen metod och sedan kalla på den i CarController istället för att måla om direkt i CarController. 

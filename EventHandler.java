@@ -19,7 +19,8 @@ public class EventHandler {
                                 JButton turboOnButton, JButton turboOffButton,
                                 JButton liftBedButton, JButton lowerBedButton,
                                 JButton turnRightButton, JButton turnLeftButton,
-                                JSpinner gasSpinner) {
+                                JSpinner gasSpinner, JButton addCarButton,
+                                JButton removeCarButton) {
 
 
         gasButton.addActionListener(new ActionListener() {
@@ -91,6 +92,18 @@ public class EventHandler {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.turnLeft();
+            }
+        });
+        addCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addCar(new Volvo240());
+            }
+        });
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.removeCar();
             }
         });
     }
