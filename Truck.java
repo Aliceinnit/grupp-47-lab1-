@@ -3,8 +3,15 @@ package grupp47_lab1;
 import java.awt.*;
 
 public abstract class Truck extends Car{
+    private TruckState platformState; //förvarar current state
     public Truck(int doors, double power, Color clr, String name) {
         super(doors, power, clr, name);
+        this.platformState = new PlatformUpState();
+        this.platformAngle = 0;
+    }
+
+    public TruckState getCurrentPlatformState() {
+        return platformState;
     }
 
     private double platformAngle;
@@ -13,25 +20,32 @@ public abstract class Truck extends Car{
         return platformAngle;
     }
 
+    public void setPlatformState(TruckState state) {
+        this.platformState = state;
+    }
+
+    public void setPlatformAngle(double angle){
+        this.platformAngle = angle;
+    }
     public void raisePlatform() {
-        if (getCurrentSpeed() == 0) {
-            platformAngle = Math.max(getCurrentAngle() - 2, 0);
+        if (getCurrentSpeed() == 0){
+            platformState.raisePlatform(this);
         } else {
-            throw new IllegalStateException("Cannot raise platform when moving.");
+            System.out.println("Cannot raise platform while moving!");
         }
     }
 
     public void lowerPlatform() {
-        if (getCurrentSpeed() == 0) {
-            platformAngle = Math.min(getCurrentAngle() + 2, 70);
+        if (getCurrentSpeed() == 0) { // ✅ Ensures truck is stationary
+            platformState.lowerPlatform(this);
         } else {
-            throw new IllegalStateException("Cannot lower platform when moving.");
+            System.out.println("Cannot lower platform while moving!");
         }
     }
 
     @Override
     public void gas(double amount) {
-        if (getCurrentAngle() == 0) {
+        if (platformState instanceof PlatformUpState) {
             super.gas(amount);
         } else {
             throw new IllegalStateException("You cannot accelerate when platform is lowered.");

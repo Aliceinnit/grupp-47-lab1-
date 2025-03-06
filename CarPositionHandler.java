@@ -25,11 +25,11 @@ public class CarPositionHandler {
     }
 
 
-    public void moveit(int x, int y, String model){
+    public void moveit(int x, int y, Car car){
         //checks if the car exists in the hashmap carPositions
-        if (carPositions.containsKey(model)) {
+        if (carPositions.containsKey(car)) {
             //updates the car's position
-            carPositions.get(model).setLocation(x, y);
+            carPositions.get(car).setLocation(x, y);
         }
     }
 
@@ -37,7 +37,7 @@ public class CarPositionHandler {
         carPositions.remove(car);
     }
 
-    public Map<String, Point> getCarPositions() {
+    public Map<Car, Point> getCarPositions() {
         return new HashMap<>(carPositions); // Return a copy to prevent modification
     }
 }

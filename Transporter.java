@@ -9,14 +9,10 @@ public class Transporter<T extends PersonCar> extends Truck {
         super(2, 125, Color.cyan, "Transformer");
     }
 
-    public enum platformState {
-        UP,
-        DOWN
-    }
-    private platformState state = platformState.UP;
+
 
     public void loadCar(T car){
-        if (getPlatformState() == platformState.DOWN &&
+        if (getCurrentPlatformState() instanceof PlatformDownState &&
                 storage.getCars().size() < 9 &&
                 Math.abs(getY() - car.getY()) <= 5 &&
                 Math.abs(getX() - car.getX()) <= 5){
@@ -29,7 +25,7 @@ public class Transporter<T extends PersonCar> extends Truck {
     }
 
     public void unloadCar(){
-        if (getPlatformState() == platformState.DOWN) {
+        if (getCurrentPlatformState() instanceof PlatformDownState) {
             storage.unloadCar();
         } else {
             throw new IllegalStateException("You cannot unload a car right now.");
@@ -39,31 +35,9 @@ public class Transporter<T extends PersonCar> extends Truck {
     public Stack<T> getCars() {
         return storage.getCars();
     }
-    public platformState getPlatformState() {
-        return state;
-    }
 
-    public void platformSwitch(platformState nextState) {
-        state = nextState;
-    }
 
-    public void changeState() {
-        if (getCurrentSpeed() == 0){
-            switch(getPlatformState()) {
-                case DOWN:
-                    while (getCurrentAngle() < 70) {
-                        lowerPlatform();
-                    }
-                    break;
-                case UP:
-                    while (getCurrentAngle() > 0) {
-                        raisePlatform();
-                    }
-                    break;
-            }
 
-        }
-    }
 
     @Override
     protected double speedFactor() {

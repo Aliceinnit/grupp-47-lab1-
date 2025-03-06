@@ -1,5 +1,7 @@
 package grupp47_lab1;
 
+import java.util.Stack;
+
 public interface Controllable {
     
     void gas(int amount);
@@ -12,5 +14,8 @@ public interface Controllable {
     void lowerPlatform();
     void turnRight();
     void turnLeft();
-    
+    void addCar(Car car);
+    void removeCar(Car car);
+
+    Stack<Car> getCars();
 }

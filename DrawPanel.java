@@ -2,9 +2,7 @@ package grupp47_lab1;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
@@ -14,18 +12,20 @@ public class DrawPanel extends JPanel{
 
     //static Map<String, Point> carPositions = new HashMap<>();
     private final CarPositionHandler positionHandler;
+    private final WorkshopHandler workshopHandler;
 
 
     // To keep track of a single car's position
-    static Point volvoWorkshopPoint = new Point(300,300);
+    //static Point volvoWorkshopPoint = new Point(300,300);
 
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y, Stack<Car> cars, CarPositionHandler positionHandler) {
+    public DrawPanel(int x, int y, Stack<Car> cars, CarPositionHandler positionHandler, WorkshopHandler workshopHandler) {
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.white);
         this.positionHandler = positionHandler;
+        this.workshopHandler = workshopHandler;
     }
 
     public void updateCarPosition(int x, int y, Car car) {
@@ -40,9 +40,10 @@ public class DrawPanel extends JPanel{
         super.paintComponent(g);
         Map<Car, Point> carPositions = positionHandler.getCarPositions();
         //loops through all the cars in the hashmap carPositions
-        for (Map.Entry<String, Point> entry : carPositions.entrySet()) {
+        for (Map.Entry<Car, Point> entry : carPositions.entrySet()) {
             //gets the car image based on its model name
-            BufferedImage image = carImages.get(entry.getKey());
+            BufferedImage image = ImageLoader.getInstance().getImage(entry.getKey().getModelName());
+            //System.out.println(entry.getKey());
             //gets the stored position (x,y) of the car
             Point pos = entry.getValue();
 
@@ -51,7 +52,15 @@ public class DrawPanel extends JPanel{
                 g.drawImage(image, pos.x, pos.y, null);
             }
         }
-        g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
+        for (String modelName : workshopHandler.getAllWorkshopModels()){
+            Point workshopPos = workshopHandler.getWorkshopPosition(modelName);
+            BufferedImage workshopImage = ImageLoader.getInstance().getImage(modelName + "Workshop");
+
+            if (workshopImage != null) {
+                g.drawImage(workshopImage, workshopPos.x, workshopPos.y, null);
+
+            }
+        }
     }
 }
 

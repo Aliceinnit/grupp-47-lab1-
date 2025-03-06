@@ -1,12 +1,12 @@
 package grupp47_lab1;
 import java.util.Stack;
 
-public class CarWorkshop<T extends PersonCar> {
+public class CarWorkshop<T extends PersonCar> implements Workshop{
     private final Storage<T> storage = new Storage<>();
 
-    public void loadCar(T car) {
-        if (storage.getCars().size() < 20){
-            storage.loadCar(car);
+    public void loadCar(PersonCar car) {
+        if (car != null && storage.getCars().size() < 20){
+            storage.loadCar((T) car);
         }
     }
     public void unloadCar() {
@@ -16,4 +16,5 @@ public class CarWorkshop<T extends PersonCar> {
     public Stack<T> getCars() {
         return storage.getCars();
     }
+
 }

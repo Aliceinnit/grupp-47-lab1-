@@ -27,7 +27,9 @@ public class ImageLoader {
             imageMap.put("Volvo240", loadImage("pics/Volvo240.jpg"));
             imageMap.put("Saab95", loadImage("pics/Saab95.jpg"));
             imageMap.put("Scania", loadImage("pics/Scania.jpg"));
-            imageMap.put("VolvoWorkshop", loadImage("pics/VolvoBrand.jpg"));
+            imageMap.put("Volvo240Workshop", loadImage("pics/Volvo240Brand.jpg"));
+            imageMap.put("Saab95Workshop", loadImage("pics/Saab95Brand.jpg"));
+            imageMap.put("Transporter", loadImage("pics/Transporter.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

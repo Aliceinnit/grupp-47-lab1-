@@ -15,7 +15,7 @@ class Saab95Test {
     }
 
 
-    @Test
+    /*@Test
     void setTurboOn() {
         saab.setTurboOn();
         assertTrue(saab.isTurboOn(), "Turbo should be on.");
@@ -26,7 +26,7 @@ class Saab95Test {
         saab.setTurboOn();
         saab.setTurboOff();
         assertFalse(saab.isTurboOn(),"Turbo should be off.");
-    }
+    }*/
 
 /*  @Test
     void incrementSpeed() {

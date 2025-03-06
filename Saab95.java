@@ -4,30 +4,32 @@ import java.awt.*;
 
 public class Saab95 extends PersonCar {
 
-    private boolean turboOn;
+    private SaabTurboState turboState;
+    //private boolean turboOn;
 
     public Saab95(){
         super(2,125,Color.red,"Saab95");
-        turboOn = false;
+        turboState = new TurboOffState();
         stopEngine();
     }
 
-    public void setTurboOn(){
-        turboOn = true;
+    public void setTurboState(SaabTurboState state){
+        this.turboState = state;
     }
 
-    public void setTurboOff(){
-        turboOn = false;
+    public void activateTurbo(){
+        turboState.activateTurbo(this);
     }
+
+    public void deactivateTurbo(){
+        turboState.deactivateTurbo(this);
+    }
+
 
     @Override
     protected double speedFactor(){
-        double turbo = 1;
-        if(turboOn) turbo = 1.3;
-        return getEnginePower() * 0.01 * turbo;
+        double turboMultiplier = (turboState instanceof TurboOnState) ? 1.3 : 1.0;
+        return getEnginePower() *0.01 * turboMultiplier;
     }
 
-    public boolean isTurboOn() {
-        return turboOn;
-    }
 }

@@ -97,7 +97,11 @@ public class EventHandler {
         addCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.addCar(new Volvo240());
+                String[] models = {"Volvo240", "Saab95", "Scania"};
+                String selectedModel = models[new java.util.Random().nextInt(models.length)];
+                double x = Math.random() * 700;
+                double y = Math.random() * 400;
+                controller.addCar(VehicleFactory.createVehicle(selectedModel, x, y));
             }
         });
         removeCarButton.addActionListener(new ActionListener() {

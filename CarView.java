@@ -8,12 +8,12 @@ import java.util.Stack;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
- * It initializes with being center on the screen and attaching it's controller in it's state.
+ * It initializes with being center on the screen and attaching its controller in its state.
  * It communicates with the Controller by calling methods of it when an action fires of in
- * each of it's components.
+ * each of its components.
  **/
 
-public class CarView extends JFrame{
+public class CarView extends JFrame implements Observer{
     private static final int X = 800;
     private static final int Y = 800;
     private final EventHandler eventHandler; // Hanterar knapptryck istället för att CarView gör det
@@ -39,17 +39,20 @@ public class CarView extends JFrame{
     JButton turnLeftButton = new JButton("Turn left");
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
+    JButton addCarButton = new JButton("Add car");
+    JButton removeCarButton = new JButton("Remove car");
 
     // Constructor
-    public CarView(String frameName, Controllable cc, Stack<Car> cars, CarPositionHandler positionHandler){
+    public CarView(String frameName, Controllable cc, Stack<Car> cars, CarPositionHandler positionHandler, WorkshopHandler workshopHandler){
+        super(frameName);
         this.eventHandler = new EventHandler(cc); //skapar ny EventHandler
-        this.drawPanel = new DrawPanel(800, 460, cars, positionHandler);
+        this.drawPanel = new DrawPanel(800, 460, cars, positionHandler, workshopHandler);
         initComponents(frameName);
+
     }
 
-    //Uppdaterar UIt genom att anropa repaint på drawpanel
-    public void updateUI(){
-        drawPanel.repaint();
+    public void update(){
+        SwingUtilities.invokeLater(() -> drawPanel.repaint());
     }
 
     public void updateCarPosition(int x, int y, Car car) {
@@ -82,7 +85,7 @@ public class CarView extends JFrame{
 
         this.add(gasPanel);
 
-        controlPanel.setLayout(new GridLayout(0,5));
+        controlPanel.setLayout(new GridLayout(0,6));
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.black);
@@ -100,6 +103,8 @@ public class CarView extends JFrame{
         controlPanel.add(turnLeftButton);
         controlPanel.add(startButton);
         controlPanel.add(stopButton);
+        controlPanel.add(addCarButton);
+        controlPanel.add(removeCarButton);
         controlPanel.setPreferredSize(new Dimension(X, 150));
         this.add(controlPanel);
         controlPanel.setBackground(Color.cyan);
@@ -107,7 +112,7 @@ public class CarView extends JFrame{
         //kopplar lyssnare till knappar och spinner
         eventHandler.attachListeners(gasButton, brakeButton, startButton, stopButton,
                 turboOnButton, turboOffButton, liftBedButton, lowerBedButton,
-                turnRightButton, turnLeftButton, gasSpinner);
+                turnRightButton, turnLeftButton, gasSpinner, addCarButton, removeCarButton);
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();

@@ -19,20 +19,28 @@ public class CarController extends Observable implements Controllable {
     Stack<Car> cars = new Stack<>();
     private final WorkshopHandler workshopHandler;
     private final CarPositionHandler positionHandler;
-
     //methods:
 
     public CarController(){
         // Start a new view and send a reference of self
         this.positionHandler = new CarPositionHandler(cars);
-        this.frame = new CarView("CarSim 1.0", this, cars, positionHandler);
         this.workshopHandler = new WorkshopHandler();
+        this.frame = new CarView("CarSim 1.0", this, cars, positionHandler, workshopHandler);
+
+
+        addObserver(frame);
 
         //Lägg in de förskapade bilarna i listan och kalla på VehicleFactory för att skapa de
-        //cars.add(VehicleFactory.createCar("Volvo240", 100, 0));
         cars.add(VehicleFactory.createVehicle("Saab95", 100, 140));
         cars.add(VehicleFactory.createVehicle("Scania", 0, 200));
         cars.add(VehicleFactory.createVehicle("Volvo240", 200, 0));
+    }
+
+    public void moveCars(){
+        for (Car car: cars){
+            car.move();
+        }
+        notifyObservers();
     }
 
     public static void main(String[] args) {
@@ -52,7 +60,7 @@ public class CarController extends Observable implements Controllable {
             for(Car car : cars) {
                 if (workshopHandler.checkCollisionWithWorkshop(car)){
                     carsToRemove.add(car);
-                    positionHandler.removeCarFromUI(car.getModelName());
+                    positionHandler.removeCar(car);
                 } else {
                     car.move();
                     positionHandler.moveit((int) car.getX(), (int) car.getY(), car);
@@ -86,9 +94,15 @@ public class CarController extends Observable implements Controllable {
                 // repaint() calls the paintComponent method of the panel
             }
             cars.removeAll(carsToRemove);
-            frame.updateUI();
+            notifyObservers();
         }
     }
+
+    @Override
+    public Stack<Car> getCars() {
+        return cars;
+    }
+
     @Override
     // Calls the gas method for each car once
     public void gas(int amount) {
@@ -122,7 +136,7 @@ public class CarController extends Observable implements Controllable {
     public void turboOn() {
         for (Car car : cars) {
             if (car instanceof Saab95 saab){
-                (saab).setTurboOn();
+                saab.activateTurbo();
             }
         }
     }
@@ -130,7 +144,7 @@ public class CarController extends Observable implements Controllable {
     public void turboOff() {
         for (Car car: cars){
             if (car instanceof Saab95 saab){
-                (saab).setTurboOff();
+                (saab).deactivateTurbo();
             }
         }
     }
@@ -162,6 +176,7 @@ public class CarController extends Observable implements Controllable {
             car.turnLeft();
         }
     }
+
 
     @Override
     public void addCar(Car car){

@@ -30,45 +30,45 @@ class TransporterTest {
 
     @Test
     void unload() {
-        transporter.platformSwitch(Transporter.platformState.DOWN);
-        transporter.changeState();
+        //transporter.platformSwitch(Transporter.platformState.DOWN);
+        //transporter.changeState();
         transporter.loadCar(testCar);
 
-        transporter.platformSwitch(Transporter.platformState.UP);
-        transporter.changeState();
+        //transporter.platformSwitch(Transporter.platformState.UP);
+        //transporter.changeState();
         transporter.unloadCar();
         assertEquals(transporter.getCars().size(), 1);
 
-        transporter.platformSwitch(Transporter.platformState.DOWN);
-        transporter.changeState();
+        //transporter.platformSwitch(Transporter.platformState.DOWN);
+        //transporter.changeState();
         transporter.unloadCar();
         assertEquals(transporter.getCars().size(), 0);
     }
 
     @Test
     void testChangeState() {
-        transporter.platformSwitch(Transporter.platformState.DOWN);
-        transporter.changeState();
+        //transporter.platformSwitch(Transporter.platformState.DOWN);
+        //transporter.changeState();
         assertEquals(transporter.getCurrentAngle(), 70);
 
         transporter.startEngine();
         assertEquals(transporter.getCurrentSpeed(), 0);
 
-        transporter.platformSwitch(Transporter.platformState.UP);
-        transporter.changeState();
+        //transporter.platformSwitch(Transporter.platformState.UP);
+        //transporter.changeState();
         assertEquals(transporter.getCurrentAngle(), 0);
 
         transporter.startEngine();
         transporter.gas(1);
-        transporter.platformSwitch(Transporter.platformState.DOWN);
-        transporter.changeState();
+        //transporter.platformSwitch(Transporter.platformState.DOWN);
+        //transporter.changeState();
         assertEquals(transporter.getCurrentAngle(), 0);
     }
 
     @Test
     void move() {
-        transporter.platformSwitch(Transporter.platformState.DOWN);
-        transporter.changeState();
+        //transporter.platformSwitch(Transporter.platformState.DOWN);
+        //transporter.changeState();
         transporter.loadCar(testCar);
         transporter.move();
         transporter.turnRight();
