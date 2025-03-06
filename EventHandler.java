@@ -103,7 +103,7 @@ public class EventHandler {
         removeCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.removeCar();
+                controller.removeCar("Volvo240");
             }
         });
     }

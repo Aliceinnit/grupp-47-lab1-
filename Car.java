@@ -1,5 +1,7 @@
 package grupp47_lab1;
 
+import org.junit.jupiter.params.provider.EnumSource;
+
 import java.awt.Color;
 
 public abstract class Car implements Movable {
@@ -10,6 +12,9 @@ public abstract class Car implements Movable {
     private final String ModelName;
     private double xPos;
     private double yPos;
+    private final int id;
+    private static int idCounter = 0;
+
     public enum Directions {
         NORTH(0),
         EAST(1),
@@ -32,10 +37,14 @@ public abstract class Car implements Movable {
         enginePower = power;
         color = clr;
         ModelName = name;
+        id = idCounter++;
     }
 
     private Directions dir = Directions.NORTH;
 
+    public String getUniqueKey(){
+        return ModelName + "_" + id;
+    }
 
     public int getNrDoors() {
         return nrDoors;

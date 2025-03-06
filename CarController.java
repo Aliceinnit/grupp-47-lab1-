@@ -33,7 +33,6 @@ public class CarController extends Observable implements Controllable {
         cars.add(VehicleFactory.createVehicle("Saab95", 100, 140));
         cars.add(VehicleFactory.createVehicle("Scania", 0, 200));
         cars.add(VehicleFactory.createVehicle("Volvo240", 200, 0));
-
     }
 
     public static void main(String[] args) {
@@ -167,11 +166,18 @@ public class CarController extends Observable implements Controllable {
     @Override
     public void addCar(Car car){
         cars.push(car);
+        positionHandler.initializeCarPositions(cars);
+        //frame.drawPanel.repaint();
+        notifyObservers();
+
     }
 
     @Override
-    public void removeCar(){
-
+    public void removeCar(String uniqueKey){
+        cars.removeIf(car -> car.getUniqueKey().equals(uniqueKey));
+        positionHandler.removeCar(uniqueKey);
+        //frame.drawPanel.repaint();
+        notifyObservers();
     }
 
 }

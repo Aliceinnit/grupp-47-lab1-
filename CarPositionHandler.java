@@ -20,6 +20,10 @@ public class CarPositionHandler {
         }
     }
 
+    public void addCar(String uniqueKey, double x, double y){
+        carPositions.put(uniqueKey,new Point((int) x, (int)y));
+    }
+
 
     public void moveit(int x, int y, String model){
         //checks if the car exists in the hashmap carPositions
@@ -29,8 +33,8 @@ public class CarPositionHandler {
         }
     }
 
-    public void removeCarFromUI(String modelName) {
-        carPositions.remove(modelName);
+    public void removeCar(String uniqueKey) {
+        carPositions.remove(uniqueKey);
     }
 
     public Map<String, Point> getCarPositions() {

@@ -13,14 +13,11 @@ import javax.swing.*;
 public class DrawPanel extends JPanel{
 
     //static Map<String, Point> carPositions = new HashMap<>();
-    Map<String, BufferedImage> carImages = new HashMap<>();
     private final CarPositionHandler positionHandler;
 
 
     // To keep track of a single car's position
     static Point volvoWorkshopPoint = new Point(300,300);
-
-    BufferedImage volvoWorkshopImage;
 
 
     // Initializes the panel and reads the images
@@ -35,9 +32,7 @@ public class DrawPanel extends JPanel{
         positionHandler.moveit(x,y, modelName);
     }
 
-    public void removeCarFromUI(String modelName){
-        positionHandler.removeCarFromUI(modelName);
-    }
+
     // This method is called each time the panel updates/refreshes/repaints itself
     @Override
     protected void paintComponent(Graphics g) {

@@ -18,8 +18,8 @@ class TransporterTest {
         transporter.loadCar(testCar);
         assertEquals(transporter.getCars().size(), 0);
 
-        transporter.platformSwitch(Transporter.platformState.DOWN);
-        transporter.changeState();
+        //transporter.platformSwitch(Transporter.platformState.DOWN);
+        //transporter.changeState();
 
         while (transporter.getCars().size()<9) {
             transporter.loadCar(testCar);

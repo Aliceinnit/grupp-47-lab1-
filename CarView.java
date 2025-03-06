@@ -18,7 +18,7 @@ public class CarView extends JFrame{
     private static final int Y = 800;
     private final EventHandler eventHandler; // Hanterar knapptryck istället för att CarView gör det
     public CarPositionHandler CarPositionHandler;
-    private final DrawPanel drawPanel;
+    final DrawPanel drawPanel;
 
     //DrawPanel drawPanel = new DrawPanel(X, Y-340, CarPositionHandler.cars);
 
