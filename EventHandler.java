@@ -103,7 +103,12 @@ public class EventHandler {
         removeCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.removeCar("Volvo240");
+                if (!controller.getCars().isEmpty()){
+                    Car lastCar = (Car) controller.getCars().peek();
+                    controller.removeCar(lastCar);
+                }
+
+
             }
         });
     }

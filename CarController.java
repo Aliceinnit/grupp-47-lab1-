@@ -55,7 +55,7 @@ public class CarController extends Observable implements Controllable {
                     positionHandler.removeCarFromUI(car.getModelName());
                 } else {
                     car.move();
-                    positionHandler.moveit((int) car.getX(), (int) car.getY(), car.getModelName());
+                    positionHandler.moveit((int) car.getX(), (int) car.getY(), car);
                 }
                 boolean turned = false;
 
@@ -82,7 +82,7 @@ public class CarController extends Observable implements Controllable {
                 }
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
-                frame.updateCarPosition(x, y, car.getModelName());
+                frame.updateCarPosition(x, y, car);
                 // repaint() calls the paintComponent method of the panel
             }
             cars.removeAll(carsToRemove);
@@ -165,19 +165,24 @@ public class CarController extends Observable implements Controllable {
 
     @Override
     public void addCar(Car car){
-        cars.push(car);
-        positionHandler.initializeCarPositions(cars);
-        //frame.drawPanel.repaint();
-        notifyObservers();
+        if (cars.size() < 10){
+            cars.push(car);
+            positionHandler.addCar(car, car.getX(), car.getY());
+            notifyObservers();
+        } else {
+            System.out.println("Car limit reached!");
+        }
 
     }
 
     @Override
-    public void removeCar(String uniqueKey){
-        cars.removeIf(car -> car.getUniqueKey().equals(uniqueKey));
-        positionHandler.removeCar(uniqueKey);
-        //frame.drawPanel.repaint();
-        notifyObservers();
+    public void removeCar(Car car){
+        if (cars.remove(car)){
+            positionHandler.removeCar(car);
+            notifyObservers();
+        } else {
+            System.out.println("Car not found!");
+        }
     }
 
 }

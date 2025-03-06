@@ -28,8 +28,8 @@ public class DrawPanel extends JPanel{
         this.positionHandler = positionHandler;
     }
 
-    public void updateCarPosition(int x, int y, String modelName) {
-        positionHandler.moveit(x,y, modelName);
+    public void updateCarPosition(int x, int y, Car car) {
+        positionHandler.moveit(x,y, car);
     }
 
 
@@ -38,7 +38,7 @@ public class DrawPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         //clears the screen
         super.paintComponent(g);
-        Map<String, Point> carPositions = positionHandler.getCarPositions();
+        Map<Car, Point> carPositions = positionHandler.getCarPositions();
         //loops through all the cars in the hashmap carPositions
         for (Map.Entry<String, Point> entry : carPositions.entrySet()) {
             //gets the car image based on its model name

@@ -52,8 +52,8 @@ public class CarView extends JFrame{
         drawPanel.repaint();
     }
 
-    public void updateCarPosition(int x, int y, String modelName) {
-        drawPanel.updateCarPosition(x, y, modelName);
+    public void updateCarPosition(int x, int y, Car car) {
+        drawPanel.updateCarPosition(x, y, car);
     }
     // Sets everything in place and fits everything
     private void initComponents(String title) {
