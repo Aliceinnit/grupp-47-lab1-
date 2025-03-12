@@ -36,7 +36,7 @@ public abstract class Truck extends Car{
     }
 
     public void lowerPlatform() {
-        if (getCurrentSpeed() == 0) { // ✅ Ensures truck is stationary
+        if (getCurrentSpeed() == 0) { // Ensures truck is stationary
             platformState.lowerPlatform(this);
         } else {
             System.out.println("Cannot lower platform while moving!");
@@ -48,7 +48,7 @@ public abstract class Truck extends Car{
         if (platformState instanceof PlatformUpState) {
             super.gas(amount);
         } else {
-            throw new IllegalStateException("You cannot accelerate when platform is lowered.");
+            System.out.println("You cannot accelerate when platform is lowered.");
         }
     }
 
@@ -58,7 +58,7 @@ public abstract class Truck extends Car{
             super.startEngine();
         }
         else{
-            throw new IllegalStateException("You cannot start Engine when platform is lowered.");
+            System.out.println("You cannot start Engine when platform is lowered.");
         }
     }
 
@@ -67,7 +67,7 @@ public abstract class Truck extends Car{
         if (getCurrentAngle() == 0) {
             super.move();
         } else {
-            throw new IllegalStateException("You cannot move if platform is lowered.");
+            System.out.println("You cannot move if platform is lowered.");
         }
     }
 }

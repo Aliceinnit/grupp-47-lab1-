@@ -14,7 +14,7 @@ public interface Controllable {
     void lowerPlatform();
     void turnRight();
     void turnLeft();
-    void addCar(Car car);
+    void addCar(Car car, double x,double y);
     void removeCar(Car car);
 
     Stack<Car> getCars();

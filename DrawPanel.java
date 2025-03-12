@@ -2,7 +2,6 @@ package grupp47_lab1;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
 import javax.swing.*;
 
 
