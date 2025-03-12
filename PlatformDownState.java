@@ -4,7 +4,7 @@ public class PlatformDownState implements TruckState{
     @Override
     public void raisePlatform(Truck truck) {
         System.out.println("Raising platform...");
-        truck.setPlatformAngle(0); // ✅ Set to min
+        truck.setPlatformAngle(0);
         truck.setPlatformState(new PlatformUpState());
 
     }

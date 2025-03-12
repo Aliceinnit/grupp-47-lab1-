@@ -16,11 +16,7 @@ import java.util.Stack;
 public class CarView extends JFrame implements Observer{
     private static final int X = 800;
     private static final int Y = 800;
-    private final EventHandler eventHandler; // Hanterar knapptryck istället för att CarView gör det
-    public CarPositionHandler CarPositionHandler;
     final DrawPanel drawPanel;
-
-    //DrawPanel drawPanel = new DrawPanel(X, Y-340, CarPositionHandler.cars);
 
     JPanel controlPanel = new JPanel();
 
@@ -43,10 +39,10 @@ public class CarView extends JFrame implements Observer{
     JButton removeCarButton = new JButton("Remove car");
 
     // Constructor
-    public CarView(String frameName, Controllable cc, Stack<Car> cars, CarPositionHandler positionHandler, WorkshopHandler workshopHandler){
+    public CarView(String frameName, Controllable cc, Stack<Car> cars, WorkshopHandler workshopHandler){
         super(frameName);
-        this.eventHandler = new EventHandler(cc); //skapar ny EventHandler
-        this.drawPanel = new DrawPanel(800, 460, cars, positionHandler, workshopHandler);
+        CarController carController = (cc instanceof CarController) ? (CarController) cc : null;
+        this.drawPanel = new DrawPanel(800, 460, workshopHandler, carController);
         initComponents(frameName);
 
     }
@@ -55,9 +51,6 @@ public class CarView extends JFrame implements Observer{
         SwingUtilities.invokeLater(() -> drawPanel.repaint());
     }
 
-    public void updateCarPosition(int x, int y, Car car) {
-        drawPanel.updateCarPosition(x, y, car);
-    }
     // Sets everything in place and fits everything
     private void initComponents(String title) {
 
@@ -110,9 +103,9 @@ public class CarView extends JFrame implements Observer{
         controlPanel.setBackground(Color.cyan);
 
         //kopplar lyssnare till knappar och spinner
-        eventHandler.attachListeners(gasButton, brakeButton, startButton, stopButton,
+        /*.attachListeners(gasButton, brakeButton, startButton, stopButton,
                 turboOnButton, turboOffButton, liftBedButton, lowerBedButton,
-                turnRightButton, turnLeftButton, gasSpinner, addCarButton, removeCarButton);
+                turnRightButton, turnLeftButton, gasSpinner, addCarButton, removeCarButton);*/
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();

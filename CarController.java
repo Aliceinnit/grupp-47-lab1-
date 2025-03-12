@@ -18,35 +18,56 @@ public class CarController extends Observable implements Controllable {
     // A list of cars, modify if needed
     Stack<Car> cars = new Stack<>();
     private final WorkshopHandler workshopHandler;
-    private final CarPositionHandler positionHandler;
+
+
     //methods:
 
     public CarController(){
         // Start a new view and send a reference of self
-        this.positionHandler = new CarPositionHandler(cars);
         this.workshopHandler = new WorkshopHandler();
-        this.frame = new CarView("CarSim 1.0", this, cars, positionHandler, workshopHandler);
 
-
-        addObserver(frame);
 
         //Lägg in de förskapade bilarna i listan och kalla på VehicleFactory för att skapa de
         cars.add(VehicleFactory.createVehicle("Saab95", 100, 140));
         cars.add(VehicleFactory.createVehicle("Scania", 0, 200));
         cars.add(VehicleFactory.createVehicle("Volvo240", 200, 0));
-    }
 
-    public void moveCars(){
-        for (Car car: cars){
-            car.move();
-        }
-        notifyObservers();
+        this.frame = new CarView("CarSim 1.0", this, cars, workshopHandler);
+
+        attachListeners(frame);
+        addObserver(frame);
+    }
+    public void attachListeners(CarView frame) {
+
+        this.frame.gasButton.addActionListener(e -> gas((int) this.frame.gasSpinner.getValue()));
+        this.frame.brakeButton.addActionListener(e -> brake((int) this.frame.gasSpinner.getValue()));
+        this.frame.startButton.addActionListener(e -> startEngine());
+        this.frame.stopButton.addActionListener(e -> stopEngine());
+        this.frame.turboOnButton.addActionListener(e -> turboOn());
+        this.frame.turboOffButton.addActionListener(e -> turboOff());
+        this.frame.liftBedButton.addActionListener(e -> raisePlatform());
+        this.frame.lowerBedButton.addActionListener(e -> lowerPlatform());
+        this.frame.turnRightButton.addActionListener(e -> turnRight());
+        this.frame.turnLeftButton.addActionListener(e -> turnLeft());
+        this.frame.addCarButton.addActionListener(e -> {
+                String[] models = {"Volvo240", "Saab95", "Scania"};
+                String selectedModel = models[new java.util.Random().nextInt(models.length)];
+                double x = Math.random() * 700;
+                double y = Math.random() * 400;
+                addCar(VehicleFactory.createVehicle(selectedModel, x, y), x, y);
+
+        });
+        this.frame.removeCarButton.addActionListener(e -> {
+                if (!getCars().isEmpty()){
+                    Car lastCar = (Car) getCars().peek();
+                    removeCar(lastCar);
+                }
+        });
     }
 
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
-        cc.positionHandler.initializeCarPositions(cc.cars);
         // Start the timer
         cc.timer.start();
     }
@@ -60,10 +81,11 @@ public class CarController extends Observable implements Controllable {
             for(Car car : cars) {
                 if (workshopHandler.checkCollisionWithWorkshop(car)){
                     carsToRemove.add(car);
-                    positionHandler.removeCar(car);
+                    continue;
+                } else if (car instanceof Truck truck && truck.getCurrentPlatformState() instanceof PlatformDownState) {
+                    continue;
                 } else {
                     car.move();
-                    positionHandler.moveit((int) car.getX(), (int) car.getY(), car);
                 }
                 boolean turned = false;
 
@@ -85,15 +107,14 @@ public class CarController extends Observable implements Controllable {
                     car.turnLeft();
                     car.turnLeft();
                     car.startEngine();
-                } else {
-                    car.move();
                 }
-                int x = (int) Math.round(car.getX());
-                int y = (int) Math.round(car.getY());
-                frame.updateCarPosition(x, y, car);
-                // repaint() calls the paintComponent method of the panel
+
+                frame.update();
+
             }
-            cars.removeAll(carsToRemove);
+            for (Car car: carsToRemove){
+                removeCar(car);
+            }
             notifyObservers();
         }
     }
@@ -178,11 +199,9 @@ public class CarController extends Observable implements Controllable {
     }
 
 
-    @Override
-    public void addCar(Car car){
+    public void addCar(Car car, double x, double y){
         if (cars.size() < 10){
             cars.push(car);
-            positionHandler.addCar(car, car.getX(), car.getY());
             notifyObservers();
         } else {
             System.out.println("Car limit reached!");
@@ -190,10 +209,9 @@ public class CarController extends Observable implements Controllable {
 
     }
 
-    @Override
     public void removeCar(Car car){
         if (cars.remove(car)){
-            positionHandler.removeCar(car);
+            //carPositions.remove(car);
             notifyObservers();
         } else {
             System.out.println("Car not found!");
