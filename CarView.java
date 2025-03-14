@@ -18,6 +18,7 @@ public class CarView extends JFrame implements Observer{
     private static final int Y = 800;
     final DrawPanel drawPanel;
     final CarModel model;
+    final CarController controller;
 
     JPanel controlPanel = new JPanel();
 
@@ -40,12 +41,28 @@ public class CarView extends JFrame implements Observer{
     JButton removeCarButton = new JButton("Remove car");
 
     // Constructor
-    public CarView(String frameName, CarModel model) {
+    public CarView(String frameName, CarModel model, CarController controller) {
         super(frameName);
         this.model = model;
+        this.controller = controller;
         this.drawPanel = new DrawPanel(800, 460, model);
         model.addObserver(this); // Gör så att vyn uppdateras när modellen förändras
         initComponents(frameName);
+        attachListeners();
+    }
+    private void attachListeners() {
+        gasButton.addActionListener(e -> controller.gas((int) gasSpinner.getValue()));
+        brakeButton.addActionListener(e -> controller.brake((int) gasSpinner.getValue()));
+        startButton.addActionListener(e -> controller.startEngine());
+        stopButton.addActionListener(e -> controller.stopEngine());
+        turboOnButton.addActionListener(e -> controller.turboOn());
+        turboOffButton.addActionListener(e -> controller.turboOff());
+        liftBedButton.addActionListener(e -> controller.raisePlatform());
+        lowerBedButton.addActionListener(e -> controller.lowerPlatform());
+        turnRightButton.addActionListener(e -> controller.turnRight());
+        turnLeftButton.addActionListener(e -> controller.turnLeft());
+        addCarButton.addActionListener(e -> controller.addCar());
+        removeCarButton.addActionListener(e -> controller.removeCar());
     }
 
 
