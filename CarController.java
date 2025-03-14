@@ -43,34 +43,6 @@ public class CarController {
             }
         }
     }
-    public void attachListeners() {
-        view.gasButton.addActionListener(e -> model.getCars().forEach(car -> car.gas((int) view.gasSpinner.getValue() / 100.0)));
-        view.brakeButton.addActionListener(e -> model.getCars().forEach(car -> car.brake((int) view.gasSpinner.getValue() / 100.0)));
-        view.startButton.addActionListener(e -> model.getCars().forEach(Car::startEngine));
-        view.stopButton.addActionListener(e -> model.getCars().forEach(Car::stopEngine));
-        view.turboOnButton.addActionListener(e -> model.getCars().forEach(car -> {
-            if (car instanceof Saab95 saab) saab.activateTurbo();
-        }));
-        view.turboOffButton.addActionListener(e -> model.getCars().forEach(car -> {
-            if (car instanceof Saab95 saab) saab.deactivateTurbo();
-        }));
-        view.liftBedButton.addActionListener(e -> model.getCars().forEach(car -> {
-            if (car instanceof Scania scania) scania.raisePlatform();
-        }));
-        view.lowerBedButton.addActionListener(e -> model.getCars().forEach(car -> {
-            if (car instanceof Scania scania) scania.lowerPlatform();
-        }));
-        view.turnRightButton.addActionListener(e -> model.getCars().forEach(Car::turnRight));
-        view.turnLeftButton.addActionListener(e -> model.getCars().forEach(Car::turnLeft));
-        view.addCarButton.addActionListener(e -> {
-            String[] models = {"Volvo240", "Saab95", "Scania"};
-            String selectedModel = models[new java.util.Random().nextInt(models.length)];
-            double x = Math.random() * 700;
-            double y = Math.random() * 400;
-            model.addCar(VehicleFactory.createVehicle(selectedModel, x, y));
-        });
-        view.removeCarButton.addActionListener(e -> model.removeCar());
-    }
 
     public void gas(int amount) {
         double gasAmount = ((double) amount) / 100;

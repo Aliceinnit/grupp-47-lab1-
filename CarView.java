@@ -46,7 +46,7 @@ public class CarView extends JFrame implements Observer{
         this.model = model;
         this.controller = controller;
         this.drawPanel = new DrawPanel(800, 460, model);
-        model.addObserver(this); // Gör så att vyn uppdateras när modellen förändras
+        model.addObserver(this);
         initComponents(frameName);
         attachListeners();
     }
@@ -65,7 +65,6 @@ public class CarView extends JFrame implements Observer{
         removeCarButton.addActionListener(e -> controller.removeCar());
     }
 
-
     public void update(){
         SwingUtilities.invokeLater(() -> drawPanel.repaint());
     }
@@ -80,10 +79,10 @@ public class CarView extends JFrame implements Observer{
         this.add(drawPanel);
 
         SpinnerModel spinnerModel =
-                new SpinnerNumberModel(0, //initial value
-                        0, //min
-                        100, //max
-                        1);//step
+                new SpinnerNumberModel(0,
+                        0,
+                        100,
+                        1);
         gasSpinner = new JSpinner(spinnerModel);
         gasSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -122,9 +121,6 @@ public class CarView extends JFrame implements Observer{
         controlPanel.setBackground(Color.cyan);
 
         //kopplar lyssnare till knappar och spinner
-        /*.attachListeners(gasButton, brakeButton, startButton, stopButton,
-                turboOnButton, turboOffButton, liftBedButton, lowerBedButton,
-                turnRightButton, turnLeftButton, gasSpinner, addCarButton, removeCarButton);*/
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
