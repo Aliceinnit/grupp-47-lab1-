@@ -7,18 +7,24 @@ import javax.swing.*;
 
 // This panel represents the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
+public class DrawPanel extends JPanel implements Observer{
     private final WorkshopHandler workshopHandler;
-    private final CarController carController;
+    private final CarModel model;
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y, WorkshopHandler workshopHandler, CarController carController) {
+    public DrawPanel(int x, int y, CarModel model) {
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.white);
-        this.carController = carController;
-        this.workshopHandler = workshopHandler;}
+        this.model = model;
+        this.workshopHandler = model.getWorkshopHandler();
+        model.addObserver(this);
+    }
 
+    @Override
+    public void update() {
+        repaint();
+    }
 
     // This method is called each time the panel updates/refreshes/repaints itself
     @Override
@@ -26,7 +32,7 @@ public class DrawPanel extends JPanel{
         //clears the screen
         super.paintComponent(g);
         //loops through all the cars in the hashmap carPositions
-        for (Car car : carController.getCars()) {
+        for (Car car : model.getCars()) {
             //gets the car image based on its model name
             BufferedImage image = ImageLoader.getInstance().getImage(car.getModelName());
             if (image != null){

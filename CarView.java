@@ -17,6 +17,7 @@ public class CarView extends JFrame implements Observer{
     private static final int X = 800;
     private static final int Y = 800;
     final DrawPanel drawPanel;
+    final CarModel model;
 
     JPanel controlPanel = new JPanel();
 
@@ -39,13 +40,14 @@ public class CarView extends JFrame implements Observer{
     JButton removeCarButton = new JButton("Remove car");
 
     // Constructor
-    public CarView(String frameName, Controllable cc, Stack<Car> cars, WorkshopHandler workshopHandler){
+    public CarView(String frameName, CarModel model) {
         super(frameName);
-        CarController carController = (cc instanceof CarController) ? (CarController) cc : null;
-        this.drawPanel = new DrawPanel(800, 460, workshopHandler, carController);
+        this.model = model;
+        this.drawPanel = new DrawPanel(800, 460, model);
+        model.addObserver(this); // Gör så att vyn uppdateras när modellen förändras
         initComponents(frameName);
-
     }
+
 
     public void update(){
         SwingUtilities.invokeLater(() -> drawPanel.repaint());

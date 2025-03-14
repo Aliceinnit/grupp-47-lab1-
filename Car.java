@@ -1,7 +1,5 @@
 package grupp47_lab1;
 
-import org.junit.jupiter.params.provider.EnumSource;
-
 import java.awt.Color;
 
 public abstract class Car implements Movable {
